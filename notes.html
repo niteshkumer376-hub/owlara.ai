@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter Notes - Class 10 (Maharashtra State Board) | Owlora</title>
+  <meta name="description" content="Syllabus-aligned revision notes for Class 10 Maharashtra State Board Science and Social Science (SST) following Balbharati textbooks.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-58G45Z5J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+  <!-- End Google Tag Manager -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/app.css?v=8">
+  <script>
+    if (!localStorage.getItem('owlora_current_user')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+  <style>
+    /* 3-Step Notes Navigation Views */
+    .notes-view {
+      display: none;
+    }
+    .notes-view.active {
+      display: block;
+    }
+
+    /* Step 1: Subjects Grid */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .subject-select-card {
+      background: #FFFFFF;
+      border: 2px solid #191A23;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 4px 4px 0px #191A23;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .subject-select-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0px #191A23;
+      background-color: #F8F9FA;
+    }
+
+    .subject-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .subject-card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #191A23;
+      margin: 0 0 8px 0;
+    }
+
+    .subject-card-desc {
+      font-size: 0.95rem;
+      color: #6C757D;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .subject-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #191A23;
+    }
+
+    /* Step 2: Chapter List Cards */
+    .chapters-subgroup-heading {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #191A23;
+      padding: 12px 16px;
+      background: #F4F5F7;
+      border-left: 4px solid #191A23;
+      border-radius: 4px;
+      margin: 20px 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .chapter-card-item {
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 3px 3px 0px #191A23;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chapter-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0px #191A23;
+      background: #F8F9FA;
+    }
+
+    .chapter-card-item.active {
+      background: #B9FF66;
+    }
+
+    .chapter-card-item .part-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6C757D;
+    }
+
+    .chapter-card-item .ch-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #191A23;
+      line-height: 1.4;
+    }
+
+    /* Step 3: Reader View */
+    .reader-top-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid var(--border-color);
+    }
+
+    .reader-nav-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1.5px solid var(--border-color);
+    }
+
+    @media (max-width: 640px) {
+      .subjects-grid {
+        grid-template-columns: 1fr;
+      }
+      .chapters-grid {
+        grid-template-columns: 1fr;
+      }
+      .reader-top-action-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .reader-nav-footer {
+        flex-direction: column;
+        width: 100%;
+      }
+      .reader-nav-footer button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  
+    .notes-mode-toggle-group {
+      display: inline-flex;
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 2px 2px 0px #191A23;
+    }
+    .notes-mode-btn {
+      padding: 6px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      background: #FFFFFF;
+      color: #191A23;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .notes-mode-btn:hover {
+      background: #F8F9FA;
+    }
+    .notes-mode-btn.active {
+      background: #191A23;
+      color: #FFFFFF;
+    }
+  
+  </style>
+</head>
+<body style="background-color: var(--bg-canvas);">
+
+  <!-- App Header Top Bar -->
+  <header class="app-topbar">
+    <a href="index.html" class="app-brand">
+      <img src="assets/favicon.svg" alt="Owlora Icon" width="28" height="28">
+      <span>OWLORA</span>
+    </a>
+
+    <div class="app-topbar-actions">
+      <!-- Medium Toggle in Header -->
+      <div class="medium-toggle-group">
+        <button type="button" class="medium-btn active" data-medium="english" onclick="window.setNotesMedium('english')">English</button>
+        <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setNotesMedium('hindi')">हिंदी</button>
+      </div>
+
+      <a href="ai_tutor.html" class="topbar-btn" style="background-color: var(--accent-lime); font-weight: 800; border: 2px solid #191A23; box-shadow: 2px 2px 0 #191A23;">
+        <span>✨ Ask AI Teacher</span>
+      </a>
+
+      <a href="index.html" class="topbar-btn">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Home</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container" style="max-width: 1100px; margin-top: 24px; padding-bottom: 60px;">
+
+    <!-- ========================================== -->
+    <!-- STEP 1: SUBJECTS LIST SCREEN               -->
+    <!-- ========================================== -->
+    <section id="notes-view-subjects" class="notes-view active">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <span class="badge badge-dark">MAHARASHTRA STATE BOARD</span>
+          <h1 style="font-size: 2rem; margin: 10px 0 4px 0;">Class 10 Notes</h1>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Select a subject to view all chapters and syllabus notes.</p>
+        </div>
+        <a href="index.html" class="btn btn-outline btn-sm">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Home</span>
+        </a>
+      </div>
+
+      <div class="subjects-grid">
+        <!-- Subject 1: Science -->
+        <div class="subject-select-card" onclick="window.selectNotesSubject('science')">
+          <div>
+            <div class="subject-card-header">
+              <span class="badge badge-lime">2 PARTS · 20 CHAPTERS</span>
+              <span class="badge badge-dark">SCIENCE</span>
+            </div>
+            <h2 class="subject-card-title">Science &amp; Technology</h2>
+            <p class="subject-card-desc">Comprehensive notes for Part 1 (Physics &amp; Chemistry) and Part 2 (Biology &amp; Environmental Science) according to Balbharati textbook.</p>
+          </div>
+          <div class="subject-card-action">
+            <span>Browse Chapters</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Subject 2: Social Science (SST) -->
+        <div class="subject-select-card" onclick="window.selectNotesSubject('sst')">
+          <div>
+            <div class="subject-card-header">
+              <span class="badge badge-lime">3 PARTS · 26 CHAPTERS</span>
+              <span class="badge badge-dark">SST</span>
+            </div>
+            <h2 class="subject-card-title">Social Science (SST)</h2>
+            <p class="subject-card-desc">Syllabus notes for Part 1 (History &amp; Political Science), Part 2 (Geography), and Part 3 (Economics) aligned with board patterns.</p>
+          </div>
+          <div class="subject-card-action">
+            <span>Browse Chapters</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+        <!-- Subject 3: Mathematics -->
+        <div class="subject-select-card" onclick="window.selectNotesSubject('maths')">
+          <div>
+            <div class="subject-card-header">
+              <span class="badge badge-lime">2 PARTS · 9 CHAPTERS</span>
+              <span class="badge badge-dark">MATHS</span>
+            </div>
+            <h2 class="subject-card-title">Mathematics (गणित)</h2>
+            <p class="subject-card-desc">Part 1 (Algebra - बीजगणित) and Part 2 (Geometry - भूमिति) syllabus notes aligned with Maharashtra State Board Class 10 Balbharati textbooks.</p>
+          </div>
+          <div class="subject-card-action">
+            <span>Browse Chapters</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Subject 4: English (Kumarbharati) -->
+        <div class="subject-select-card" onclick="window.selectNotesSubject('english')">
+          <div>
+            <div class="subject-card-header">
+              <span class="badge badge-lime">5 UNITS · 25 CHAPTERS</span>
+              <span class="badge badge-dark">ENGLISH</span>
+            </div>
+            <h2 class="subject-card-title">English (Kumarbharati)</h2>
+            <p class="subject-card-desc">Complete study notes for Units 1 to 4 (24 lessons) plus Unit 5 (Grammar, Language Study and Writing Skills) according to Maharashtra State Board.</p>
+          </div>
+          <div class="subject-card-action">
+            <span>Browse Chapters</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Subject 5: Hindi (Kumarbharati) -->
+        <div class="subject-select-card" onclick="window.selectNotesSubject('hindi')">
+          <div>
+            <div class="subject-card-header">
+              <span class="badge badge-lime">3 SECTIONS · 26 CHAPTERS</span>
+              <span class="badge badge-dark">HINDI</span>
+            </div>
+            <h2 class="subject-card-title">हिंदी (कुमारभारती)</h2>
+            <p class="subject-card-desc">महाराष्ट्र राज्य माध्यमिक शिक्षण मंडल (MSBSHSE) कक्षा 10 हिंदी कुमारभारती (इकाई 1, इकाई 2 एवं परिशिष्ट 1 व 2) के सम्पूर्ण नोट्स।</p>
+          </div>
+          <div class="subject-card-action">
+            <span>Browse Chapters</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ========================================== -->
+    <!-- STEP 2: CHAPTER LIST SCREEN                -->
+    <!-- ========================================== -->
+    <section id="notes-view-chapters" class="notes-view">
+      <!-- Breadcrumb & Back to Subjects -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="window.showNotesSubjectsView()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Subjects</span>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span id="chapters-view-subject-badge" class="badge badge-dark">SCIENCE</span>
+          <span id="chapters-view-medium-badge" class="badge badge-lime">ENGLISH</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h1 id="chapters-view-title" style="font-size: 2rem; margin: 0 0 8px 0;">Science Chapters</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Click on any chapter below to open the full chapter reading view.</p>
+      </div>
+
+      <!-- Part Switcher Tabs -->
+      <div id="notes-part-tabs-container" class="notes-part-tabs" style="margin-bottom: 24px;">
+        <!-- Injected dynamically by features.js -->
+      </div>
+
+      <!-- Grouped Chapter List Container -->
+      <div id="notes-chapters-container">
+        <!-- Injected dynamically by features.js -->
+      </div>
+    </section>
+
+
+
+    <!-- ========================================== -->
+    <!-- STEP 3: CHAPTER READING VIEW               -->
+    <!-- ========================================== -->
+    <section id="notes-view-reader" class="notes-view">
+      <!-- Top Action Bar -->
+      <div class="reader-top-action-bar">
+        <button type="button" class="btn btn-outline btn-sm" onclick="window.showNotesChaptersView()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Chapter List</span>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span id="reader-breadcrumb-part" class="badge badge-dark">PART 1 · CHAPTER 1</span>
+          
+          <!-- In-Reader Medium Toggle -->
+          <div class="medium-toggle-group">
+            <button type="button" class="medium-btn active" data-medium="english" onclick="window.setNotesMedium('english')">English</button>
+            <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setNotesMedium('hindi')">हिंदी</button>
+          </div>
+
+          <span class="badge badge-lime">READER MODE</span>
+        </div>
+      </div>
+
+      <!-- Main Reader Article Card -->
+      
+      <!-- Chapter Mode Switch (Notes | Video | Audio) -->
+      <div id="notes-video-switch-container" style="display: none; margin-bottom: 20px;">
+        <div class="notes-mode-toggle-group" id="notes-mode-toggle-group">
+          <button type="button" class="notes-mode-btn active" id="btn-mode-notes" onclick="window.setChapterViewMode('notes')">Notes</button>
+          <button type="button" class="notes-mode-btn" id="btn-mode-video" onclick="window.setChapterViewMode('video')">Video</button>
+          <button type="button" class="notes-mode-btn" id="btn-mode-audio" onclick="window.setChapterViewMode('audio')">Audio</button>
+        </div>
+      </div>
+
+      <!-- Video Player Container (visible only in video mode) -->
+      <div id="notes-video-player-container" style="display: none; margin-bottom: 24px;"></div>
+
+      <!-- Audio Player Container (visible only in audio mode) -->
+      <div id="notes-audio-player-container" style="display: none; margin-bottom: 24px;"></div>
+
+      <article class="notes-reader-card">
+        <div style="border-bottom: 1.5px solid var(--border-color); padding-bottom: 16px;">
+          <span id="notes-reader-part-badge" class="badge badge-lime" style="margin-bottom: 8px;">Part 1 · Chapter 1</span>
+          <h1 id="notes-reader-title" style="font-size: 2rem; margin: 4px 0 0 0;">1. Gravitation</h1>
+        </div>
+
+        <!-- Notes Reader Content -->
+        <div id="notes-reader-content">
+          <!-- Injected dynamically by features.js -->
+        </div>
+
+        <!-- Reader Navigation Footer -->
+        <div class="reader-nav-footer">
+          <button type="button" id="btn-notes-prev" class="btn btn-outline btn-sm" onclick="window.navigateNote(-1)">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span>Previous Chapter</span>
+          </button>
+          
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.showNotesChaptersView()">
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            <span>Back to Chapter List</span>
+          </button>
+
+          <button type="button" id="btn-notes-next" class="btn btn-outline btn-sm" onclick="window.navigateNote(1)">
+            <span>Next Chapter</span>
+            <svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STEP 4: MATHS FORMULAS SCREEN              -->
+    <!-- ========================================== -->
+    <section id="notes-view-formulas" class="notes-view">
+      <!-- Top Action Bar -->
+      <div class="reader-top-action-bar">
+        <button type="button" class="btn btn-outline btn-sm" onclick="window.showNotesChaptersView()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Mathematics</span>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span class="badge badge-dark">MATHEMATICS FORMULAS</span>
+          
+          <!-- In-Formulas Medium Toggle -->
+          <div class="medium-toggle-group">
+            <button type="button" class="medium-btn active" data-medium="english" onclick="window.setNotesMedium('english')">English</button>
+            <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setNotesMedium('hindi')">हिंदी</button>
+          </div>
+
+          <span class="badge badge-lime">FORMULAS</span>
+        </div>
+      </div>
+
+      <!-- Main Formulas Article Card -->
+      <article class="notes-reader-card">
+        <div style="border-bottom: 1.5px solid var(--border-color); padding-bottom: 16px;">
+          <span class="badge badge-lime" style="margin-bottom: 8px;">Mathematics · Class 10</span>
+          <h1 id="notes-formulas-title" style="font-size: 2rem; margin: 4px 0 0 0;">Mathematics Formulas (Part 1 &amp; Part 2)</h1>
+          <p id="notes-formulas-subtitle" style="color: var(--text-muted); font-size: 0.95rem; margin: 8px 0 0 0;">Standard mathematical formulas and key results for Maharashtra State Board Class 10 Algebra &amp; Geometry.</p>
+        </div>
+
+        <!-- Formulas Content -->
+        <div id="notes-formulas-content">
+          <!-- Injected dynamically by features.js -->
+        </div>
+
+        <!-- Formulas Footer -->
+        <div class="reader-nav-footer">
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.showNotesChaptersView()">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Mathematics</span>
+          </button>
+        </div>
+      </article>
+    </section>
+
+
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/chapters_data.js?v=9"></script>
+  <script src="js/community_progress.js?v=2"></script>
+  <script src="js/features.js?v=9"></script>
+</body>
+</html>

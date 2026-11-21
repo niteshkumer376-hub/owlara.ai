@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Diagrams & Biology Atlas - Class 6 to 12 | Owlora</title>
+  <meta name="description" content="Complete 89-page Biology Diagram Atlas and 3D Structural Models for Maharashtra State Board and board exams covering Botany, Zoology, Human Anatomy, and Cell Biology.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-58G45Z5J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+  <!-- End Google Tag Manager -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/app.css?v=8">
+  <script>
+    if (!localStorage.getItem('owlora_current_user')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+  <style>
+    /* Dedicated 3D Diagrams & Biology Atlas Viewer Styles */
+    .atlas-container {
+      max-width: 1180px;
+      margin: 20px auto 80px auto;
+      padding: 0 16px;
+    }
+
+    .atlas-header-card {
+      background: #FFFFFF;
+      border: 2px solid #191A23;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 4px 4px 0px #191A23;
+      margin-bottom: 24px;
+    }
+
+    .atlas-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .atlas-main-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #191A23;
+      margin: 8px 0 4px 0;
+    }
+
+    .atlas-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Class & Category Filter Chips */
+    .filter-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1.5px solid #E5E7EB;
+    }
+
+    .filter-chips-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #191A23;
+      margin-right: 4px;
+      min-width: 70px;
+    }
+
+    .atlas-chip {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      background: #FFFFFF;
+      color: #191A23;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #191A23;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .atlas-chip:hover {
+      background: #F4F5F7;
+      transform: translateY(-1px);
+    }
+
+    .atlas-chip.active {
+      background: var(--accent-lime);
+      box-shadow: 1px 1px 0px #191A23;
+      transform: translate(1px, 1px);
+    }
+
+    /* Search Bar */
+    .search-filter-wrap {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 260px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      background: #FFFFFF;
+      box-shadow: 2px 2px 0px #191A23;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #191A23;
+      background: #FAFAFA;
+    }
+
+    /* Main Viewport Card */
+    .viewer-card {
+      background: #FFFFFF;
+      border: 2px solid #191A23;
+      border-radius: 16px;
+      box-shadow: 5px 5px 0px #191A23;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    /* Viewport Toolbar */
+    .viewer-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 18px;
+      background: #F8F9FA;
+      border-bottom: 2px solid #191A23;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .viewer-btn {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      box-shadow: 2px 2px 0px #191A23;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #191A23;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .viewer-btn:hover {
+      background: #F0F0F0;
+      transform: translateY(-1px);
+    }
+
+    .viewer-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #191A23;
+    }
+
+    .page-indicator-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .page-input-control {
+      width: 52px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 4px 6px;
+      border: 1.5px solid #191A23;
+      border-radius: 6px;
+      background: #FFFFFF;
+    }
+
+    /* Canvas Display Stage */
+    .canvas-stage {
+      position: relative;
+      min-height: 540px;
+      background: #232533;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: auto;
+      max-height: 82vh;
+    }
+
+    .canvas-stage.mode-light {
+      background: #EAEAEA;
+    }
+
+    #diagram-pdf-canvas {
+      display: block;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.15s ease-out;
+      image-rendering: high-quality;
+      -webkit-optimize-contrast: high;
+    }
+
+    /* Loading overlay */
+    .viewer-loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(25, 26, 35, 0.75);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      gap: 12px;
+      z-index: 10;
+      font-weight: 700;
+    }
+
+    /* Diagram Info Footer Bar */
+    .viewer-info-bar {
+      padding: 16px 20px;
+      background: #FFFFFF;
+      border-top: 2px solid #191A23;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .diagram-active-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #191A23;
+      margin: 4px 0 0 0;
+    }
+
+    .diagram-active-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Diagram Directory Grid */
+    .diagrams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .diagram-card-item {
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 3px 3px 0px #191A23;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .diagram-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0px #191A23;
+      background: #F8F9FA;
+    }
+
+    .diagram-card-item.active {
+      background: var(--accent-lime);
+      border-color: #191A23;
+    }
+
+    .diagram-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .diagram-page-pill {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      background: #191A23;
+      color: #FFFFFF;
+      border-radius: 4px;
+    }
+
+    .diagram-card-item.active .diagram-page-pill {
+      background: #191A23;
+      color: var(--accent-lime);
+    }
+
+    .diagram-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #191A23;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .diagram-card-chapter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Fullscreen Mode */
+    .viewer-card:fullscreen,
+    .viewer-card:-webkit-full-screen {
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .viewer-card:fullscreen .canvas-stage,
+    .viewer-card:-webkit-full-screen .canvas-stage {
+      flex: 1;
+      max-height: none;
+    }
+
+    @media (max-width: 768px) {
+      .canvas-stage {
+        padding: 12px 6px;
+        min-height: 380px;
+      }
+      .viewer-toolbar {
+        padding: 10px;
+      }
+      .filter-label {
+        min-width: 100%;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-canvas);">
+
+  <!-- App Header Top Bar -->
+  <header class="app-topbar">
+    <a href="index.html" class="app-brand">
+      <img src="assets/favicon.svg" alt="Owlora Icon" width="28" height="28">
+      <span>OWLORA</span>
+    </a>
+
+    <div class="app-topbar-actions">
+      <a href="ai_tutor.html" class="topbar-btn" style="background-color: var(--accent-lime); font-weight: 800; border: 2px solid #191A23; box-shadow: 2px 2px 0 #191A23;">
+        <span>🔬 Ask Diagram AI</span>
+      </a>
+      <a href="index.html" class="topbar-btn">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Home</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Atlas Container -->
+  <main class="atlas-container">
+
+    <!-- Top Header Card -->
+    <div class="atlas-header-card">
+      <div class="atlas-title-row">
+        <div>
+          <span class="badge badge-lime">BIOLOGY DIAGRAM ATLAS & 3D MODELS</span>
+          <h1 class="atlas-main-title">Biology Diagrams Atlas (Classes 6 to 12)</h1>
+          <p class="atlas-subtitle">Complete 89-page high-definition diagram atlas with page-by-page inspection, HD zoom, and Maharashtra State Board Class 10 essentials.</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="assets/pdf/Biology_Diagrams_All_Classes_6to12.pdf" download class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Download Original PDF</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Filters & Class Chips -->
+      <div class="filter-section">
+        <!-- Class Chips -->
+        <div class="filter-chips-row">
+          <span class="filter-label">Class:</span>
+          <button type="button" class="atlas-chip active" data-class="all" onclick="window.selectClass('all')">All Classes (89)</button>
+          <button type="button" class="atlas-chip" data-class="10" onclick="window.selectClass('10')">Class 10 (SSC Board - 16)</button>
+          <button type="button" class="atlas-chip" data-class="6" onclick="window.selectClass('6')">Class 6 (9)</button>
+          <button type="button" class="atlas-chip" data-class="7" onclick="window.selectClass('7')">Class 7 (12)</button>
+          <button type="button" class="atlas-chip" data-class="8" onclick="window.selectClass('8')">Class 8 (11)</button>
+          <button type="button" class="atlas-chip" data-class="9" onclick="window.selectClass('9')">Class 9 (8)</button>
+          <button type="button" class="atlas-chip" data-class="11" onclick="window.selectClass('11')">Class 11 (14)</button>
+          <button type="button" class="atlas-chip" data-class="12" onclick="window.selectClass('12')">Class 12 (18)</button>
+        </div>
+
+        <!-- Category Chips -->
+        <div class="filter-chips-row">
+          <span class="filter-label">Category:</span>
+          <button type="button" class="atlas-chip active" data-cat="all" onclick="window.selectCategory('all')">All Types</button>
+          <button type="button" class="atlas-chip" data-cat="Botany" onclick="window.selectCategory('Botany')">Botany (Plant Science)</button>
+          <button type="button" class="atlas-chip" data-cat="Zoology" onclick="window.selectCategory('Zoology')">Zoology (Human Anatomy & Animals)</button>
+          <button type="button" class="atlas-chip" data-cat="Mechanism" onclick="window.selectCategory('Mechanism')">How It Works / Mechanisms</button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-filter-wrap">
+          <input type="text" id="atlas-search-input" class="search-input" placeholder="Search diagrams by name or topic (e.g. Heart, Brain, Nephron, Leaf, Stomata, Cell, Mitosis, DNA...)" oninput="window.handleSearch(event)">
+          <span id="diagrams-count-badge" class="badge badge-dark">89 Diagrams</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN VIEWER CARD -->
+    <div id="viewer-container" class="viewer-card">
+      <!-- Toolbar -->
+      <div class="viewer-toolbar">
+        <div class="toolbar-group">
+          <button type="button" class="viewer-btn" onclick="window.prevPage()" aria-label="Previous Page">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Prev</span>
+          </button>
+
+          <div class="page-indicator-wrap">
+            <span>Page</span>
+            <input type="number" id="page-num-input" class="page-input-control" min="1" max="89" value="44" onchange="window.jumpToPage(this.value)">
+            <span>of <strong id="total-pages-span">89</strong></span>
+          </div>
+
+          <button type="button" class="viewer-btn" onclick="window.nextPage()" aria-label="Next Page">
+            <span>Next</span>
+            <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+
+        <!-- Zoom & Viewport Controls -->
+        <div class="toolbar-group">
+          <button type="button" class="viewer-btn" onclick="window.zoomOut()" title="Zoom Out">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            <span>-</span>
+          </button>
+          
+          <span id="zoom-level-text" style="font-weight: 800; font-size: 0.85rem; padding: 0 4px;">125%</span>
+
+          <button type="button" class="viewer-btn" onclick="window.zoomIn()" title="Zoom In">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            <span>+</span>
+          </button>
+
+          <button type="button" class="viewer-btn" onclick="window.resetZoom()" title="Reset Zoom">
+            <span>Fit</span>
+          </button>
+
+          <button type="button" class="viewer-btn" onclick="window.rotatePage()" title="Rotate 90 degrees">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            <span>Rotate</span>
+          </button>
+
+          <button type="button" class="viewer-btn" onclick="window.toggleStageBg()" title="Toggle Canvas Dark/Light Background">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <span>Theme</span>
+          </button>
+
+          <button type="button" class="viewer-btn" onclick="window.toggleFullscreen()" title="Fullscreen">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            <span>Fullscreen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Stage -->
+      <div id="canvas-stage" class="canvas-stage">
+        <canvas id="diagram-pdf-canvas"></canvas>
+        
+        <div id="viewer-loading" class="viewer-loading-overlay" style="display: none;">
+          <div style="width: 36px; height: 36px; border: 3px solid #FFFFFF; border-top-color: var(--accent-lime); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+          <span>Rendering High-Definition Diagram...</span>
+        </div>
+      </div>
+
+      <!-- Info Bar -->
+      <div class="viewer-info-bar">
+        <div>
+          <div class="diagram-active-meta">
+            <span id="active-class-badge" class="badge badge-lime">CLASS 10</span>
+            <span id="active-cat-badge" class="badge badge-dark">ZOOLOGY</span>
+            <span id="active-chapter-badge" class="badge badge-white">LIFE PROCESSES</span>
+          </div>
+          <h2 id="active-diagram-title" class="diagram-active-title">Human Heart (Internal Structure, Atria, Ventricles, Valves)</h2>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.jumpToPage(45)">Human Heart</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.jumpToPage(50)">Human Brain</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.jumpToPage(48)">Nephron</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Diagram Selection Grid -->
+    <div class="section-header-row" style="margin-top: 36px; margin-bottom: 16px;">
+      <span class="section-badge">Diagram Directory</span>
+      <p class="section-subtext">Click any diagram below to inspect it in full high-definition clarity.</p>
+    </div>
+
+    <div id="diagrams-grid" class="diagrams-grid"></div>
+
+  </main>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- PDF.js Library and Data -->
+  <script src="vendor/pdf.min.js"></script>
+  <script src="js/diagrams_data.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Set PDF.js Worker
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
+
+      const PDF_URL = 'assets/pdf/Biology_Diagrams_All_Classes_6to12.pdf';
+
+      let pdfDoc = null;
+      let currentPage = 45; // Start with Human Heart (Class 10)
+      let currentScale = 1.25;
+      let currentRotation = 0;
+      let isRendering = false;
+      let renderQueue = null;
+
+      let selectedClassFilter = 'all';
+      let selectedCatFilter = 'all';
+      let searchQuery = '';
+
+      const canvas = document.getElementById('diagram-pdf-canvas');
+      const ctx = canvas.getContext('2d');
+      const loadingOverlay = document.getElementById('viewer-loading');
+      const pageInput = document.getElementById('page-num-input');
+      const zoomText = document.getElementById('zoom-level-text');
+
+      // Load Document
+      function loadPdf() {
+        showLoading(true);
+        pdfjsLib.getDocument(PDF_URL).promise.then(doc => {
+          pdfDoc = doc;
+          document.getElementById('total-pages-span').textContent = doc.numPages;
+          pageInput.max = doc.numPages;
+          renderPage(currentPage);
+          renderDiagramsGrid();
+        }).catch(err => {
+          console.error('Error loading PDF:', err);
+          showLoading(false);
+          alert('Could not load Biology Diagrams PDF: ' + err.message);
+        });
+      }
+
+      function showLoading(show) {
+        if (loadingOverlay) loadingOverlay.style.display = show ? 'flex' : 'none';
+      }
+
+      // Render Page to Canvas
+      function renderPage(num) {
+        if (!pdfDoc) return;
+        if (isRendering) {
+          renderQueue = num;
+          return;
+        }
+
+        isRendering = true;
+        showLoading(true);
+
+        pdfDoc.getPage(num).then(page => {
+          const rotation = (page.rotate + currentRotation) % 360;
+          const viewport = page.getViewport({ scale: currentScale, rotation: rotation });
+
+          // High DPI Support for Crystal-Clear Diagram Text & Labels
+          const outputScale = window.devicePixelRatio || 1;
+          canvas.width = Math.floor(viewport.width * outputScale);
+          canvas.height = Math.floor(viewport.height * outputScale);
+          canvas.style.width = Math.floor(viewport.width) + 'px';
+          canvas.style.height = Math.floor(viewport.height) + 'px';
+
+          const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+
+          const renderContext = {
+            canvasContext: ctx,
+            transform: transform,
+            viewport: viewport
+          };
+
+          const renderTask = page.render(renderContext);
+
+          renderTask.promise.then(() => {
+            isRendering = false;
+            showLoading(false);
+            if (renderQueue !== null) {
+              const nextNum = renderQueue;
+              renderQueue = null;
+              renderPage(nextNum);
+            }
+          });
+
+          // Update Info Displays
+          currentPage = num;
+          pageInput.value = num;
+          updateDiagramInfo(num);
+          highlightActiveGridCard(num);
+        }).catch(err => {
+          console.error('Error rendering page:', err);
+          isRendering = false;
+          showLoading(false);
+        });
+      }
+
+      function updateDiagramInfo(num) {
+        const info = (window.owloraDiagramsData || []).find(d => d.page === num);
+        if (info) {
+          document.getElementById('active-diagram-title').textContent = info.title;
+          document.getElementById('active-class-badge').textContent = (info.classNum === 'Atlas' ? 'ATLAS' : 'CLASS ' + info.classNum);
+          document.getElementById('active-cat-badge').textContent = info.category.toUpperCase();
+          document.getElementById('active-chapter-badge').textContent = info.chapter.toUpperCase();
+        } else {
+          document.getElementById('active-diagram-title').textContent = `Diagram Page ${num}`;
+        }
+      }
+
+      // Page Navigation
+      window.prevPage = function () {
+        if (currentPage <= 1) return;
+        renderPage(currentPage - 1);
+      };
+
+      window.nextPage = function () {
+        if (!pdfDoc || currentPage >= pdfDoc.numPages) return;
+        renderPage(currentPage + 1);
+      };
+
+      window.jumpToPage = function (page) {
+        const p = parseInt(page, 10);
+        if (isNaN(p) || p < 1 || !pdfDoc || p > pdfDoc.numPages) return;
+        renderPage(p);
+      };
+
+      // Zoom Controls
+      window.zoomIn = function () {
+        currentScale = Math.min(3.0, currentScale + 0.25);
+        zoomText.textContent = Math.round(currentScale * 100) + '%';
+        renderPage(currentPage);
+      };
+
+      window.zoomOut = function () {
+        currentScale = Math.max(0.6, currentScale - 0.25);
+        zoomText.textContent = Math.round(currentScale * 100) + '%';
+        renderPage(currentPage);
+      };
+
+      window.resetZoom = function () {
+        currentScale = 1.15;
+        currentRotation = 0;
+        zoomText.textContent = '115%';
+        renderPage(currentPage);
+      };
+
+      window.rotatePage = function () {
+        currentRotation = (currentRotation + 90) % 360;
+        renderPage(currentPage);
+      };
+
+      window.toggleStageBg = function () {
+        const stage = document.getElementById('canvas-stage');
+        if (stage) stage.classList.toggle('mode-light');
+      };
+
+      window.toggleFullscreen = function () {
+        const container = document.getElementById('viewer-container');
+        if (!document.fullscreenElement) {
+          container.requestFullscreen().catch(err => console.log(err));
+        } else {
+          document.exitFullscreen().catch(err => console.log(err));
+        }
+      };
+
+      // Class and Category Filters
+      window.selectClass = function (cls) {
+        selectedClassFilter = cls;
+        document.querySelectorAll('.filter-chips-row [data-class]').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-class') === cls);
+        });
+        renderDiagramsGrid();
+      };
+
+      window.selectCategory = function (cat) {
+        selectedCatFilter = cat;
+        document.querySelectorAll('.filter-chips-row [data-cat]').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-cat') === cat);
+        });
+        renderDiagramsGrid();
+      };
+
+      window.handleSearch = function (e) {
+        searchQuery = (e.target.value || '').trim().toLowerCase();
+        renderDiagramsGrid();
+      };
+
+      // Render Directory Grid
+      function renderDiagramsGrid() {
+        const grid = document.getElementById('diagrams-grid');
+        if (!grid || !window.owloraDiagramsData) return;
+
+        const filtered = window.owloraDiagramsData.filter(item => {
+          if (selectedClassFilter !== 'all' && item.classNum != selectedClassFilter) {
+            return false;
+          }
+          if (selectedCatFilter !== 'all' && item.category !== selectedCatFilter) {
+            return false;
+          }
+          if (searchQuery) {
+            const matchText = (item.title + ' ' + item.chapter + ' ' + item.category + ' ' + item.classNum).toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        document.getElementById('diagrams-count-badge').textContent = `${filtered.length} Diagrams`;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--text-muted); font-weight: 700;">No diagrams matched your search. Try adjusting the class or category filter.</div>';
+          return;
+        }
+
+        grid.innerHTML = filtered.map(item => `
+          <div class="diagram-card-item ${item.page === currentPage ? 'active' : ''}" onclick="window.selectDiagramCard(${item.page})">
+            <div>
+              <div class="diagram-card-header">
+                <span class="diagram-page-pill">P. ${item.page}</span>
+                <span class="badge ${item.category === 'Botany' ? 'badge-lime' : (item.category === 'Zoology' ? 'badge-dark' : 'badge-white')}">${item.category.toUpperCase()}</span>
+              </div>
+              <h4 class="diagram-card-title">${item.title}</h4>
+            </div>
+            <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+              <span class="diagram-card-chapter">${item.chapter} &middot; Class ${item.classNum}</span>
+              <span style="font-weight: 800; font-size: 0.85rem; color: #191A23;">View →</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      window.selectDiagramCard = function (pageNum) {
+        renderPage(pageNum);
+        const viewer = document.getElementById('viewer-container');
+        if (viewer) {
+          viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      function highlightActiveGridCard(num) {
+        document.querySelectorAll('.diagram-card-item').forEach(card => {
+          const isCurrent = card.querySelector('.diagram-page-pill') && card.querySelector('.diagram-page-pill').textContent === `P. ${num}`;
+          card.classList.toggle('active', isCurrent);
+        });
+      }
+
+      // Keyboard arrow shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'ArrowLeft') window.prevPage();
+        else if (e.key === 'ArrowRight') window.nextPage();
+      });
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        loadPdf();
+      });
+    })();
+  </script>
+</body>
+</html>

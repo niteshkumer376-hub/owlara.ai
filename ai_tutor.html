@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OWLORA AI - Personal Teacher & Exam Mentor | Maharashtra State Board</title>
+  <meta name="description" content="AI-powered interactive personal teacher, textbook explorer, voice teacher, diagram explainer, and exam mentor for Maharashtra State Board Class 10 SSC.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-58G45Z5J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/app.css?v=8">
+  <link rel="stylesheet" href="css/ai_tutor.css?v=1">
+</head>
+<body>
+
+  <div class="ai-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="ai-sidebar">
+      <div class="ai-sidebar-header">
+        <a href="index.html" class="ai-brand-badge" title="Go to Home Dashboard">
+          <div class="ai-brand-icon">
+            <img src="assets/favicon.svg" alt="Owl Logo" width="22" height="22">
+          </div>
+          <span>OWLORA <span style="background: var(--accent-lime); padding: 2px 6px; border-radius: 4px; border: 1.5px solid #191A23; font-size: 0.78rem;">AI</span></span>
+        </a>
+      </div>
+
+      <button type="button" id="btn-new-chat" class="btn-new-chat">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" style="stroke: currentColor; width:16px; height:16px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>+ New Learning Session</span>
+      </button>
+
+      <div style="padding: 0 16px 6px 16px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">
+        Recent Conversations
+      </div>
+
+      <div id="ai-history-list" class="ai-history-list">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="ai-sidebar-footer">
+        <a href="index.html" style="color: var(--text-main); font-weight: 700; text-decoration: underline; display: flex; align-items: center; gap: 4px;">
+          ← Back to Dashboard
+        </a>
+        <span style="font-size: 0.72rem;">SSC Class 10</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT PANEL -->
+    <main class="ai-main">
+
+      <!-- TOP CONTROL BAR -->
+      <header class="ai-topbar">
+        <div class="ai-topbar-row1">
+          <div class="ai-context-selectors">
+            <!-- Mobile Toggle -->
+            <button type="button" id="ai-sidebar-toggle" class="btn btn-sm btn-outline" style="padding: 6px 10px; display: none;">
+              ☰
+            </button>
+
+            <!-- Subject Selector -->
+            <select id="ai-subject-select" class="ai-select" title="Select Board Subject">
+              <!-- Dynamically populated -->
+            </select>
+
+            <!-- Chapter Selector -->
+            <select id="ai-chapter-select" class="ai-select" title="Select Chapter">
+              <!-- Dynamically populated -->
+            </select>
+
+            <!-- Language Selector -->
+            <select id="ai-lang-select" class="ai-select" title="Teaching Language">
+              <option value="english">English (Semi-English)</option>
+              <option value="marathi">मराठी (Marathi Medium)</option>
+              <option value="hindi">हिंदी (Hindi Medium)</option>
+            </select>
+          </div>
+
+          <!-- Active Model Indicator -->
+          <div class="ai-model-badge" title="Active OpenRouter Teacher Model">
+            <span class="ai-model-dot"></span>
+            <span id="ai-model-name">Llama 3.3 70B</span>
+          </div>
+        </div>
+
+        <!-- THE 8 AI MODULE PILLS -->
+        <nav class="ai-module-pills" aria-label="AI Modules">
+          <button type="button" class="ai-pill-btn active" data-module="personal_teacher">
+            🧑‍🏫 Personal Teacher
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="textbook">
+            📖 Textbook AI
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="voice">
+            🎙️ Voice Teacher
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="diagram">
+            🔬 Diagram AI
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="exam_mentor">
+            🎯 Exam Mentor
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="quiz">
+            📝 Quiz Master
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="roadmap">
+            🗺️ Study Roadmap
+          </button>
+          <button type="button" class="ai-pill-btn" data-module="notes">
+            📑 Notes Generator
+          </button>
+        </nav>
+      </header>
+
+      <!-- CHAT CONVERSATION FEED -->
+      <section id="ai-chat-feed" class="ai-chat-feed" aria-live="polite">
+        <!-- Messages rendered dynamically -->
+      </section>
+
+      <!-- BOTTOM INTERACTIVE DOCK -->
+      <footer class="ai-bottom-dock">
+        <!-- Quick Prompt Suggestions -->
+        <div id="ai-prompt-chips" class="ai-prompt-chips">
+          <!-- Dynamically populated per module -->
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="ai-input-form">
+          <textarea
+            id="ai-chat-input"
+            class="ai-textarea"
+            placeholder="Ask your question or topic (e.g. Newton's laws, human heart, diagrams)..."
+            rows="1"
+          ></textarea>
+
+          <!-- Voice Mic Button (STT) -->
+          <button type="button" id="ai-btn-mic" class="ai-btn-mic" title="Speak your question (Voice Input)">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" style="stroke: currentColor; width: 18px; height: 18px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+          </button>
+
+          <!-- Send Button -->
+          <button type="button" id="ai-btn-send" class="ai-btn-send" title="Send Question">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" style="stroke: #191A23; width: 18px; height: 18px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- SCRIPT DEPENDENCIES -->
+  <script src="js/data/atlas_data.js"></script>
+  <script src="js/data/curriculum.js"></script>
+  <script src="js/chapters_data.js"></script>
+  <script src="js/mind_maps_data.js"></script>
+  <script src="js/data/pyq_practice_data.js"></script>
+  <script src="js/supabase_client.js"></script>
+  <script src="js/community_progress.js"></script>
+  <script src="js/ai/rag_engine.js"></script>
+  <script src="js/ai/ai_db.js"></script>
+  <script src="js/ai/ai_tutor.js"></script>
+
+</body>
+</html>

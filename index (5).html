@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owlora - Maharashtra State Board Study Platform</title>
+  <meta name="description" content="Owlora is a focused study platform for Maharashtra State Board students covering Balbharati textbooks and board exam patterns with 3D diagrams, mind maps, audiobooks, notes, PYQs, and question practice.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-58G45Z5J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+  <!-- End Google Tag Manager -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/app.css?v=8">
+  <link rel="stylesheet" href="css/community_progress.css?v=1">
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- NAVBAR (MAIN HEADER) -->
+    <nav class="navbar">
+      <div class="container navbar-inner">
+        <a href="index.html" class="nav-brand">
+          <img src="assets/favicon.svg" alt="Owlora Icon" width="32" height="32">
+          <span>OWLORA</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <ul id="nav-links" class="nav-links">
+          <li><a href="ai_tutor.html" class="nav-link" style="color: #191A23; font-weight: 800; display: inline-flex; align-items: center; gap: 5px;"><span style="background: var(--accent-lime); padding: 1px 6px; border-radius: 4px; border: 1.5px solid #191A23; font-size: 0.72rem; box-shadow: 1px 1px 0 #191A23;">AI</span> OWLORA AI</a></li>
+          <li><a href="#study-timer" class="nav-link">Study Timer</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+          <li><a href="notes.html" class="nav-link" style="color: #191A23; font-weight: 700;">Notes</a></li>
+        </ul>
+
+        <!-- Nav Actions (Corner Sign In / Sign Up & Auth State) -->
+        <div class="nav-actions">
+          <!-- Visitor Auth Buttons (Visible when NOT signed in) -->
+          <div id="nav-visitor-auth" style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" class="btn btn-outline btn-sm" onclick="window.OwloraAuth.showAuthScreen('signin')" style="padding: 6px 12px; font-weight: 700; font-size: 0.85rem;">Sign In</button>
+            <button type="button" class="btn btn-lime btn-sm" onclick="window.OwloraAuth.showAuthScreen('signup')" style="padding: 6px 14px; font-weight: 800; font-size: 0.85rem; border: 2px solid #191A23; box-shadow: 2px 2px 0px #191A23;">Get Started</button>
+          </div>
+
+          <!-- Signed-in User Pill (Visible when signed in) -->
+          <div id="nav-user-auth" style="display: none; align-items: center; gap: 8px;">
+            <button type="button" class="btn btn-black btn-sm" onclick="window.switchTab('profile')" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;">
+              <span id="nav-user-avatar" style="width: 20px; height: 20px; border-radius: 50%; background: #B9FF66; color: #191A23; font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center;">S</span>
+              <span id="nav-user-name" style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.82rem;">Student</span>
+            </button>
+          </div>
+          
+          <!-- 3-Dot Menu Button -->
+          <button type="button" class="topbar-btn btn-three-dots" onclick="window.toggleThreeDotsMenu()" aria-label="Quick Study Tools Menu">
+            <svg class="icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="1.5"></circle>
+              <circle cx="12" cy="5" r="1.5"></circle>
+              <circle cx="12" cy="19" r="1.5"></circle>
+            </svg>
+          </button>
+
+          <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 3-Dot Dropdown Menu Backdrop & Drawer -->
+    <div id="three-dots-backdrop" class="three-dots-menu-backdrop"></div>
+    <div id="three-dots-drawer" class="three-dots-drawer">
+      <div class="drawer-header">
+        <span>STUDY TOOLS</span>
+        <button type="button" onclick="window.closeThreeDotsMenu()" style="background: none; border: none; cursor: pointer; color: var(--text-main);">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="drawer-menu-list">
+        <a href="diagrams.html" class="drawer-item">
+          <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <span>3D Diagrams & Biology Atlas</span>
+        </a>
+        <a href="mind_maps.html" class="drawer-item">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          <span>Mind Maps</span>
+        </a>
+        <a href="javascript:void(0)" class="drawer-item" onclick="window.openStudyTool('audiobook')">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+          <span>Chapter audiobook</span>
+        </a>
+        <a href="javascript:void(0)" class="drawer-item" onclick="window.openStudyTool('pyq')">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          <span>Previous years' questions</span>
+        </a>
+        <a href="javascript:void(0)" class="drawer-item" onclick="window.switchTab('arena')">
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>Question practice</span>
+        </a>
+        <a href="notes.html" class="drawer-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Notes</span>
+        </a>
+        <a href="javascript:void(0)" class="drawer-item" onclick="window.switchTab('community')">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Community</span>
+        </a>
+        <a href="javascript:void(0)" class="drawer-item" onclick="window.switchTab('progress')">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Progress</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MAIN APP SCREENS CONTAINER -->
+    <main class="app-container" style="max-width: 100%; margin: 0; padding: 0;">
+
+      <!-- ====================================================================
+           AUTH SCREEN: SINGLE SIGN-IN FOR THE ENTIRE WEBSITE
+           ==================================================================== -->
+      <section id="screen-auth" class="app-screen" style="max-width: 480px; margin: 40px auto; padding: 0 16px;">
+        <div class="card-pressed card-white" style="position: relative; padding: 32px 24px; border-radius: var(--radius-md);">
+          <!-- Close Button -->
+          <button type="button" onclick="window.OwloraAuth.closeAuthModal()" aria-label="Close" style="position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 26px; font-weight: 800; line-height: 1; cursor: pointer; color: var(--text-muted);">&times;</button>
+          
+          <!-- Logo & Brand Header -->
+          <div style="text-align: center; margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background-color: var(--accent-lime); border: 2px solid var(--border-color); border-radius: 50%; box-shadow: var(--shadow-pressed-sm); margin-bottom: 12px;">
+              <svg class="icon icon-xl" viewBox="0 0 24 24" style="stroke: #191A23;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+            </div>
+            <h1 style="font-size: 1.8rem; font-weight: 900; margin: 0 0 6px 0; color: var(--text-main);">OWLORA</h1>
+            <span class="badge badge-lime" style="font-size: 0.75rem;">Class 10 (SSC) · Maharashtra State Board</span>
+          </div>
+
+          <!-- Auth Mode Toggle Tabs (Sign In vs Sign Up) -->
+          <div style="display: flex; gap: 8px; margin-bottom: 24px; background: var(--bg-card-grey); padding: 4px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm);">
+            <button type="button" id="tab-btn-signin" class="btn btn-sm btn-black" style="flex: 1;" onclick="window.switchAuthTab('signin')">Sign In</button>
+            <button type="button" id="tab-btn-signup" class="btn btn-sm btn-outline" style="flex: 1;" onclick="window.switchAuthTab('signup')">Sign Up</button>
+          </div>
+
+          <!-- Form: Sign In -->
+          <form id="form-signin" onsubmit="event.preventDefault(); window.submitSignIn();" style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <label for="auth-signin-identifier" style="display: block; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Email Address or Student Name</label>
+              <input type="text" id="auth-signin-identifier" class="select-control" placeholder="Enter your email" required style="width: 100%;">
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label for="auth-signin-password" style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; margin: 0;">Password</label>
+                <a href="javascript:void(0)" onclick="window.submitForgotPassword()" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-decoration: underline;">Forgot password?</a>
+              </div>
+              <input type="password" id="auth-signin-password" class="select-control" placeholder="Enter password" required style="width: 100%;">
+            </div>
+            <button type="submit" class="btn btn-black" style="width: 100%; margin-top: 6px; padding: 12px;">Sign In</button>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;">
+              New student? <a href="javascript:void(0)" onclick="window.switchAuthTab('signup')" style="color: var(--text-main); font-weight: 800; text-decoration: underline;">Create an account</a>
+            </p>
+          </form>
+
+          <!-- Form: Sign Up -->
+          <form id="form-signup" onsubmit="event.preventDefault(); window.submitSignUp();" style="display: none; flex-direction: column; gap: 14px;">
+            <div>
+              <label for="auth-signup-name" style="display: block; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Student Full Name</label>
+              <input type="text" id="auth-signup-name" class="select-control" placeholder="e.g. Aarav Sharma" required style="width: 100%;">
+            </div>
+            <div>
+              <label for="auth-signup-email" style="display: block; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Email Address</label>
+              <input type="email" id="auth-signup-email" class="select-control" placeholder="e.g. aarav@gmail.com" required style="width: 100%;">
+            </div>
+            <div>
+              <label for="auth-signup-password" style="display: block; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Password</label>
+              <input type="password" id="auth-signup-password" class="select-control" placeholder="Create a password (min 6 characters)" required minlength="6" style="width: 100%;">
+            </div>
+
+            <!-- Auto-configured Course Details Note -->
+            <div style="background: var(--bg-card-grey); border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.4;">
+              <strong style="color: var(--text-main);">Course Details:</strong> Class 10 (SSC) · Maharashtra State Board (auto-configured)
+            </div>
+
+            <!-- Links to Terms and Privacy -->
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; text-align: center; margin: 4px 0 0 0;">
+              By signing up, you agree to our <a href="terms.html" target="_blank" style="color: var(--text-main); font-weight: 800; text-decoration: underline;">Terms and Conditions</a> and <a href="privacy.html" target="_blank" style="color: var(--text-main); font-weight: 800; text-decoration: underline;">Privacy Policy</a>.
+            </p>
+
+            <button type="submit" class="btn btn-black" style="width: 100%; margin-top: 6px; padding: 12px;">Create Account</button>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; margin-bottom: 0;">
+              Already have an account? <a href="javascript:void(0)" onclick="window.switchAuthTab('signin')" style="color: var(--text-main); font-weight: 800; text-decoration: underline;">Sign In</a>
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 1: ABHYAS (MAIN HOME PAGE OF OWLORA)
+           ==================================================================== -->
+      <section id="screen-abhyas" class="app-screen active">
+
+        <!-- SECTION: HERO -->
+        <header class="hero-section">
+          <div class="container">
+            <div class="hero-grid">
+              <div class="hero-content">
+                <div class="hero-board-badge">
+                  <svg class="icon" viewBox="0 0 24 24" style="stroke: #191A23;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                  <span>Maharashtra State Board (Balbharati Pattern)</span>
+                </div>
+                
+                <h1 class="hero-title">
+                  Complete study platform for Maharashtra State Board students with Balbharati <span class="highlight-lime">textbooks</span> and exam pattern.
+                </h1>
+
+                <p class="hero-subtitle-devanagari">
+                  महाराष्ट्र राज्य मंडळ (Balbharati) अभ्यासक्रमावर आधारित स्मार्ट अभ्यास साधन.
+                </p>
+
+                <p class="hero-description">
+                  Access chapter notes, interactive 3D diagrams, audiobooks, past papers, and thousands of practice questions with focus mode.
+                </p>
+
+                <div class="hero-actions">
+                  <a href="ai_tutor.html" class="btn btn-lime" style="font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">✨ Ask OWLORA AI Teacher →</a>
+                  <a href="notes.html" class="btn btn-outline">Explore Chapter Notes</a>
+                  <button type="button" class="btn btn-black" onclick="document.getElementById('study-timer').scrollIntoView({behavior: 'smooth'})">Launch Study</button>
+                </div>
+              </div>
+
+              <!-- Original Line-art Illustration with Lime Accents -->
+              <div class="hero-art-card">
+                <svg viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Desk Surface Line -->
+                  <line x1="20" y1="260" x2="360" y2="260" stroke="#191A23" stroke-width="2.5" stroke-linecap="round" />
+                  <!-- Balbharati Book Stack -->
+                  <rect x="50" y="230" width="140" height="26" rx="4" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                  <rect x="60" y="200" width="130" height="26" rx="4" fill="#F3F3F3" stroke="#191A23" stroke-width="2" />
+                  <rect x="70" y="170" width="120" height="26" rx="4" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                  <line x1="85" y1="183" x2="160" y2="183" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                  <line x1="75" y1="213" x2="150" y2="213" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                  <!-- Bookmark ribbon in lime -->
+                  <polygon points="175,170 185,170 185,210 180,202 175,210" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                  
+                  <!-- 3D Geometric Diagram Floating -->
+                  <g transform="translate(230, 70)">
+                    <polygon points="40,10 80,30 80,75 40,95 0,75 0,30" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <line x1="40" y1="10" x2="40" y2="95" stroke="#191A23" stroke-width="1.5" />
+                    <line x1="0" y1="30" x2="40" y2="52" stroke="#191A23" stroke-width="1.5" />
+                    <line x1="80" y1="30" x2="40" y2="52" stroke="#191A23" stroke-width="1.5" />
+                    <!-- Lime Vertices -->
+                    <circle cx="40" cy="10" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="80" cy="30" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="80" cy="75" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="40" cy="95" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="0" cy="75" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="0" cy="30" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="40" cy="52" r="4.5" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                  </g>
+
+                  <!-- Stopwatch Timer Ring -->
+                  <g transform="translate(240, 185)">
+                    <circle cx="45" cy="45" r="32" fill="#FFFFFF" stroke="#191A23" stroke-width="2.5" />
+                    <rect x="42" y="5" width="6" height="8" rx="2" fill="#191A23" />
+                    <line x1="45" y1="45" x2="45" y2="25" stroke="#191A23" stroke-width="2.5" stroke-linecap="round" />
+                    <line x1="45" y1="45" x2="60" y2="45" stroke="#B9FF66" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="45" cy="45" r="3" fill="#191A23" />
+                  </g>
+
+                  <!-- Owlora Stylized Owl Icon Sitting on Stack -->
+                  <g transform="translate(100, 95)">
+                    <path d="M10 20L20 10L30 20L40 10L50 20V50C50 60 40 70 30 70C20 70 10 60 10 50Z" fill="#191A23" stroke="#191A23" stroke-width="2" />
+                    <circle cx="22" cy="35" r="6" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="22" cy="35" r="2.5" fill="#191A23" />
+                    <circle cx="38" cy="35" r="6" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="38" cy="35" r="2.5" fill="#191A23" />
+                    <polygon points="30,38 27,45 33,45" fill="#B9FF66" stroke="#191A23" stroke-width="1" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ====================================================================
+             MAIN STUDY TIMER SECTION (SCHEDULED FOCUS & STUDY TOOLS)
+             Placed directly on the main page where the Launch Study button is!
+             ==================================================================== -->
+        <section id="study-timer" class="study-timer-section" style="padding: 24px 0 40px 0; background-color: var(--bg-canvas);">
+          <div class="container" style="max-width: 920px;">
+            
+            <!-- MAIN STUDY TIMER CARD -->
+            <div class="timer-hero-card">
+              <div class="timer-card-header">
+                <div>
+                  <span class="badge badge-lime">STUDY TIMER</span>
+                  <h2 style="margin-top: 6px;">SCHEDULED FOCUS</h2>
+                </div>
+                <span class="badge badge-dark">REGAIN LOCK</span>
+              </div>
+
+              <!-- Digital Clock Display -->
+              <div class="timer-clock-display">
+                <span id="timer-clock-digits" class="timer-digits">25:00</span>
+                <span class="timer-unit">MIN</span>
+              </div>
+
+              <!-- Presets -->
+              <div class="preset-grid">
+                <button type="button" class="preset-chip active" data-minutes="25">25M</button>
+                <button type="button" class="preset-chip" data-minutes="45">45M</button>
+                <button type="button" class="preset-chip" data-minutes="60">60M</button>
+                <button type="button" class="preset-chip" data-minutes="90">90M</button>
+              </div>
+
+              <!-- Subject Selection with Placeholders -->
+              <div class="subject-picker-wrap">
+                <label for="timer-subject-select" class="subject-picker-label">TARGET STUDY SUBJECT</label>
+                <select id="timer-subject-select" class="select-control">
+                  <option value="Science & Technology">Science & Technology</option>
+                  <option value="Social Science (SST)">Social Science (SST)</option>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="Hindi (कुमारभारती)">Hindi (कुमारभारती)</option>
+                  <option value="English (Kumarbharati)">English (Kumarbharati)</option>
+                </select>
+              </div>
+
+              <!-- Start Focus Button -->
+              <button type="button" id="btn-start-focus" class="btn btn-black" style="width: 100%;">
+                <svg class="icon" viewBox="0 0 24 24" style="stroke: #B9FF66;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Start Focus Session</span>
+              </button>
+
+              <!-- Per-Subject Breakdown of Study Time -->
+              <div class="study-breakdown-section">
+                <div class="breakdown-header">
+                  <h3 class="breakdown-title">Subject Study Time Breakdown</h3>
+                  <span class="badge badge-lime">TRACKED TIME</span>
+                </div>
+                <div id="subject-breakdown-list" class="breakdown-list">
+                  <!-- Rendered dynamically by timer.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Access to Study Content Screens -->
+            <div class="section-header-row" style="margin-top: 10px; margin-bottom: 20px;">
+              <span class="section-badge">Study Tools</span>
+              <p class="section-subtext">Direct access to your Maharashtra Board learning materials.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px;">
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.openStudyTool('notes')">
+                <span class="badge badge-lime">NOTES</span>
+                <h4 style="margin: 10px 0 6px 0;">Chapter Notes</h4>
+                <p style="font-size: 0.88rem;">Balbharati syllabus chapter summaries & formulas.</p>
+              </div>
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.location.href='diagrams.html'">
+                <span class="badge badge-lime">3D & BIOLOGY ATLAS</span>
+                <h4 style="margin: 10px 0 6px 0;">3D Diagrams & Atlas</h4>
+                <p style="font-size: 0.88rem;">89 Biology Atlas diagrams & 3D models.</p>
+              </div>
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.openStudyTool('mindmaps')">
+                <span class="badge badge-lime">MIND MAPS</span>
+                <h4 style="margin: 10px 0 6px 0;">Mind Maps</h4>
+                <p style="font-size: 0.88rem;">Visual concept hierarchy diagrams.</p>
+              </div>
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.openStudyTool('audiobook')">
+                <span class="badge badge-lime">AUDIOBOOK</span>
+                <h4 style="margin: 10px 0 6px 0;">Chapter Audiobook</h4>
+                <p style="font-size: 0.88rem;">Audio narration with playback speed control.</p>
+              </div>
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.openStudyTool('pyq')">
+                <span class="badge badge-lime">PYQ PAPERS</span>
+                <h4 style="margin: 10px 0 6px 0;">Previous Years Questions</h4>
+                <p style="font-size: 0.88rem;">Maharashtra Board exam papers & marking scheme.</p>
+              </div>
+              <div class="card-pressed card-white" style="padding: 20px; cursor: pointer;" onclick="window.switchTab('arena')">
+                <span class="badge badge-lime">ARENA &bull; PRACTICE</span>
+                <h4 style="margin: 10px 0 6px 0;">Question Practice</h4>
+                <p style="font-size: 0.88rem;">Practice authentic board questions across all subjects in Arena.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECTION 3: FEATURES (Exactly 7 cards: alternating Light Grey, Lime, Solid Black) -->
+        <section id="features" class="features-section">
+          <div class="container">
+            <div class="section-header-row">
+              <span class="section-badge">Features</span>
+              <p class="section-subtext">Essential study utilities engineered exclusively for Maharashtra Board Balbharati textbooks and exam patterns.</p>
+            </div>
+
+            <div class="features-grid">
+              
+              <!-- Feature Card 1: 3D Diagrams (Light Grey) -->
+              <div class="card-pressed card-grey feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-lime">VISUAL LEARNING</span>
+                  </div>
+                  <h3 class="feature-card-title">3D Diagrams & Biology Atlas</h3>
+                  <p class="feature-card-desc">Interactive 89-page high-definition diagram atlas with page-by-page inspection, HD zoom, and 3D structural models for Maharashtra Board textbooks.</p>
+                  <div class="feature-card-footer">
+                    <a href="diagrams.html" class="btn-round-icon dark" aria-label="Open 3D Diagrams">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                    <a href="diagrams.html" class="feature-link-text">Explore 89 Diagrams & 3D Models</a>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="15" width="70" height="70" rx="6" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <rect x="35" y="35" width="70" height="70" rx="6" fill="none" stroke="#191A23" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <line x1="15" y1="15" x2="35" y2="35" stroke="#191A23" stroke-width="1.5" />
+                    <line x1="85" y1="15" x2="105" y2="35" stroke="#191A23" stroke-width="1.5" />
+                    <line x1="85" y1="85" x2="105" y2="105" stroke="#191A23" stroke-width="1.5" />
+                    <line x1="15" y1="85" x2="35" y2="105" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="15" cy="15" r="4" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="85" cy="15" r="4" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="85" cy="85" r="4" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <circle cx="15" cy="85" r="4" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 2: Mind Maps (Lime) -->
+              <div class="card-pressed card-lime feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-white">CONCEPT CONNECT</span>
+                  </div>
+                  <h3 class="feature-card-title">Mind Maps</h3>
+                  <p class="feature-card-desc">Visual concept hierarchies connecting Balbharati chapter topics, definitions, and formulas into one organized canvas.</p>
+                  <div class="feature-card-footer">
+                    <a href="mind_maps.html" class="btn-round-icon dark" aria-label="Open Mind Maps">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                    <a href="mind_maps.html" class="feature-link-text">Open Concept Canvas</a>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="40" y="45" width="40" height="30" rx="6" fill="#191A23" />
+                    <circle cx="20" cy="25" r="14" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <circle cx="100" cy="25" r="14" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <circle cx="20" cy="95" r="14" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <circle cx="100" cy="95" r="14" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <path d="M40 50 Q 25 35 25 30" stroke="#191A23" stroke-width="2" fill="none" />
+                    <path d="M80 50 Q 95 35 95 30" stroke="#191A23" stroke-width="2" fill="none" />
+                    <path d="M40 70 Q 25 85 25 90" stroke="#191A23" stroke-width="2" fill="none" />
+                    <path d="M80 70 Q 95 85 95 90" stroke="#191A23" stroke-width="2" fill="none" />
+                    <circle cx="60" cy="60" r="4" fill="#B9FF66" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 3: Chapter Audiobook (Solid Black) -->
+              <div class="card-pressed card-dark feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-lime">AUDIO LEARNING</span>
+                  </div>
+                  <h3 class="feature-card-title" style="color: #FFFFFF;">Chapter Audiobook</h3>
+                  <p class="feature-card-desc">Audio player with scrubber and variable playback speed controls to listen to chapter explanations on the go.</p>
+                  <div class="feature-card-footer">
+                    <button type="button" class="btn-round-icon lime" onclick="window.openStudyTool('audiobook')" aria-label="Open Audiobook">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </button>
+                    <span class="feature-link-text" style="color: #FFFFFF;">Start Listening</span>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 65 A 35 35 0 0 1 95 65" stroke="#FFFFFF" stroke-width="3" fill="none" />
+                    <rect x="18" y="60" width="16" height="30" rx="8" fill="#B9FF66" stroke="#FFFFFF" stroke-width="2" />
+                    <rect x="86" y="60" width="16" height="30" rx="8" fill="#B9FF66" stroke="#FFFFFF" stroke-width="2" />
+                    <line x1="48" y1="70" x2="48" y2="80" stroke="#B9FF66" stroke-width="2" stroke-linecap="round" />
+                    <line x1="56" y1="62" x2="56" y2="88" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                    <line x1="64" y1="58" x2="64" y2="92" stroke="#B9FF66" stroke-width="2" stroke-linecap="round" />
+                    <line x1="72" y1="66" x2="72" y2="84" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 4: Previous Years' Questions (Light Grey) -->
+              <div class="card-pressed card-grey feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-lime">BOARD EXAM PAPERS</span>
+                  </div>
+                  <h3 class="feature-card-title">Previous Years' Questions</h3>
+                  <p class="feature-card-desc">Curated board papers by year and subject, complete with question detail view and official marking scheme references.</p>
+                  <div class="feature-card-footer">
+                    <button type="button" class="btn-round-icon dark" onclick="window.openStudyTool('pyq')" aria-label="Open PYQ">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </button>
+                    <span class="feature-link-text">Browse Papers</span>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="20" width="60" height="80" rx="4" fill="#FFFFFF" stroke="#191A23" stroke-width="2" />
+                    <line x1="42" y1="36" x2="78" y2="36" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <line x1="42" y1="48" x2="78" y2="48" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <line x1="42" y1="60" x2="68" y2="60" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="70" cy="78" r="10" fill="#B9FF66" stroke="#191A23" stroke-width="1.5" />
+                    <path d="M66 78 L69 81 L75 75" stroke="#191A23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 5: Thousands of Practice Questions per Chapter (Lime) -->
+              <div class="card-pressed card-lime feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-white">QUESTION BANK</span>
+                  </div>
+                  <h3 class="feature-card-title">Thousands of Practice Questions Per Chapter</h3>
+                  <p class="feature-card-desc">Extensive chapter-wise practice with search, filters, instant feedback, and textbook explanations scaled to thousands of items.</p>
+                  <div class="feature-card-footer">
+                    <button type="button" class="btn-round-icon dark" onclick="window.openStudyTool('practice')" aria-label="Open Practice">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </button>
+                    <span class="feature-link-text">Practice Now</span>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="70" height="70" rx="8" fill="#191A23" />
+                    <circle cx="42" cy="45" r="5" fill="#B9FF66" />
+                    <line x1="55" y1="45" x2="80" y2="45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="42" cy="62" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5" />
+                    <line x1="55" y1="62" x2="75" y2="62" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="42" cy="79" r="5" fill="none" stroke="#FFFFFF" stroke-width="1.5" />
+                    <line x1="55" y1="79" x2="82" y2="79" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 6: Chapter Notes (Solid Black) -->
+              <div class="card-pressed card-dark feature-card">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-lime">THEORY & REVISION</span>
+                  </div>
+                  <h3 class="feature-card-title" style="color: #FFFFFF;">Chapter Notes</h3>
+                  <p class="feature-card-desc">Syllabus-aligned revision notes, formulas, and summaries organized by Balbharati textbook chapters for quick reading.</p>
+                  <div class="feature-card-footer">
+                    <a href="notes.html" class="btn-round-icon lime" aria-label="Open Notes">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                    <a href="notes.html" class="feature-link-text" style="color: #B9FF66; text-decoration: underline;">Open Notes →</a>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="22" width="70" height="76" rx="6" fill="#FFFFFF" />
+                    <line x1="25" y1="34" x2="33" y2="34" stroke="#191A23" stroke-width="2.5" />
+                    <line x1="25" y1="48" x2="33" y2="48" stroke="#191A23" stroke-width="2.5" />
+                    <line x1="25" y1="62" x2="33" y2="62" stroke="#191A23" stroke-width="2.5" />
+                    <line x1="25" y1="76" x2="33" y2="76" stroke="#191A23" stroke-width="2.5" />
+                    <line x1="42" y1="36" x2="80" y2="36" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <line x1="42" y1="48" x2="74" y2="48" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <line x1="42" y1="60" x2="82" y2="60" stroke="#191A23" stroke-width="2" stroke-linecap="round" />
+                    <rect x="42" y="70" width="35" height="12" fill="#B9FF66" rx="2" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Feature Card 7: Study Timer (Light Grey - Wide spanning) -->
+              <div class="card-pressed card-grey feature-card feature-card-wide">
+                <div class="feature-card-content">
+                  <div class="feature-badge-wrap">
+                    <span class="badge badge-lime">FOCUS DISCIPLINE</span>
+                  </div>
+                  <h3 class="feature-card-title">Study Timer</h3>
+                  <p class="feature-card-desc">Scheduled focus timer with Regain-style distraction lock, subject-wise tracking, and break management to maintain steady exam preparation.</p>
+                  <div class="feature-card-footer">
+                    <button type="button" class="btn-round-icon dark" onclick="document.getElementById('study-timer').scrollIntoView({behavior: 'smooth'})" aria-label="Open Study Timer">
+                      <svg class="icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </button>
+                    <span class="feature-link-text">Launch Focus Timer</span>
+                  </div>
+                </div>
+                <div class="feature-card-illustration">
+                  <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="80" cy="65" r="42" fill="#FFFFFF" stroke="#191A23" stroke-width="2.5" />
+                    <rect x="76" y="14" width="8" height="10" rx="2" fill="#191A23" />
+                    <path d="M 80 23 A 42 42 0 0 1 122 65" stroke="#B9FF66" stroke-width="4.5" fill="none" stroke-linecap="round" />
+                    <circle cx="80" cy="65" r="4" fill="#191A23" />
+                    <line x1="80" y1="65" x2="80" y2="40" stroke="#191A23" stroke-width="2.5" stroke-linecap="round" />
+                    <rect x="73" y="76" width="14" height="12" rx="3" fill="#191A23" />
+                    <path d="M76 76 V72 A4 4 0 0 1 84 72 V76" stroke="#191A23" stroke-width="1.5" fill="none" />
+                  </svg>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: HOW IT WORKS (3 Simple Steps) -->
+        <section id="how-it-works" class="how-it-works-section">
+          <div class="container">
+            <div class="section-header-row">
+              <span class="section-badge">How It Works</span>
+              <p class="section-subtext">3 simple steps to master your Maharashtra State Board examination preparation.</p>
+            </div>
+
+            <div class="steps-grid">
+              
+              <!-- Step 1 -->
+              <div class="card-pressed step-card">
+                <div class="step-header">
+                  <span class="step-num">01</span>
+                  <span class="badge badge-lime">SETUP</span>
+                </div>
+                <h3 class="step-title">[Step 1 placeholder: Select your class and Balbharati textbook subject]</h3>
+                <p class="step-desc">[Content to be added: Choose your current grade level, target board exam pattern, and specific Balbharati textbook curriculum.]</p>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="card-pressed step-card">
+                <div class="step-header">
+                  <span class="step-num">02</span>
+                  <span class="badge badge-lime">STUDY</span>
+                </div>
+                <h3 class="step-title">Study with interactive notes, 3D diagrams, and audiobooks</h3>
+                <p class="step-desc">[Content to be added: Master complex concepts using structured chapter summaries, 3D wireframe visuals, and voice-assisted chapter audio.]</p>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="card-pressed step-card">
+                <div class="step-header">
+                  <span class="step-num">03</span>
+                  <span class="badge badge-lime">PRACTICE</span>
+                </div>
+                <h3 class="step-title">[Step 3 placeholder: Master board exam questions with timed focus practice]</h3>
+                <p class="step-desc">[Content to be added: Solve previous years papers and thousands of chapter questions while locking distractions with the study timer.]</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 5: FAQ ACCORDION -->
+        <section id="faq" class="faq-section">
+          <div class="container">
+            <div class="section-header-row">
+              <span class="section-badge">FAQ</span>
+              <p class="section-subtext">Frequently asked questions about the Owlora Maharashtra State Board study platform.</p>
+            </div>
+
+            <div class="faq-container">
+              
+              <!-- FAQ 1 -->
+              <div class="accordion-item active">
+                <div class="accordion-header">
+                  <div class="accordion-title">[FAQ Question 1: How does Owlora align with Maharashtra State Board Balbharati textbooks?]</div>
+                  <div class="accordion-toggle-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  All chapter notes, 3D models, audio tracks, and question banks strictly follow the official MSBSHSE Balbharati curriculum.
+                </div>
+              </div>
+
+              <!-- FAQ 2 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">[FAQ Question 2: Are previous years' questions included for SSC and HSC exams?]</div>
+                  <div class="accordion-toggle-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  Detailed solutions, marking schemes, and answer guidelines for previous years' Maharashtra Board examination papers.
+                </div>
+              </div>
+
+              <!-- FAQ 3 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">[FAQ Question 3: How does the focus mode timer restrict distractions during study?]</div>
+                  <div class="accordion-toggle-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  Features structured study sessions, scheduled focus blocks, and friction modals to help eliminate study distractions.
+                </div>
+              </div>
+
+              <!-- FAQ 4 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">Can I access chapter notes and mind maps offline?</div>
+                  <div class="accordion-toggle-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  Chapter notes and mind maps are cached locally in your browser for seamless offline access whenever you need them.
+                </div>
+              </div>
+
+              <!-- FAQ 5 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">[FAQ Question 5: How are the thousands of practice questions organized per chapter?]</div>
+                  <div class="accordion-toggle-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </div>
+                </div>
+                <div class="accordion-body">
+                  The question bank is organized by textbook chapter, topic, and board exam mark weightage to help you practice effectively.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 6: FOOTER -->
+        <footer class="site-footer">
+          <div class="container">
+            <div class="footer-top">
+              <div class="footer-brand-wrap">
+                <div class="footer-brand">
+                  <img src="assets/favicon.svg" alt="Owlora Icon" width="28" height="28">
+                  <span>OWLORA</span>
+                </div>
+                <p class="footer-brand-tagline">
+                  Dedicated study platform for Maharashtra State Board students following Balbharati textbooks and board exam patterns.
+                </p>
+              </div>
+
+              <div class="footer-nav">
+                <div class="footer-col">
+                  <span class="footer-col-title">Study Tools</span>
+                  <a href="notes.html" class="footer-link">Chapter Notes</a>
+                  <a href="diagrams.html" class="footer-link">3D Diagrams & Biology Atlas</a>
+                  <a href="mind_maps.html" class="footer-link">Mind Maps</a>
+                  <a href="javascript:void(0)" onclick="window.openStudyTool('audiobook')" class="footer-link">Chapter Audiobook</a>
+                  <a href="javascript:void(0)" onclick="window.openStudyTool('pyq')" class="footer-link">Previous Years Questions</a>
+                  <a href="javascript:void(0)" onclick="window.switchTab('arena')" class="footer-link">Question Practice</a>
+                </div>
+
+                <div class="footer-col">
+                  <span class="footer-col-title">Navigation</span>
+                  <a href="#features" class="footer-link">Features</a>
+                  <a href="#how-it-works" class="footer-link">How It Works</a>
+                  <a href="#faq" class="footer-link">FAQ</a>
+                  <a href="#study-timer" class="footer-link">Student Home & Timer</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer-bottom">
+              <div>Owlora Study Platform for Maharashtra State Board. All rights reserved.</div>
+              <div class="footer-legal-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms and Conditions</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: ARENA (अखाड़ा) - QUESTION PRACTICE
+           ==================================================================== -->
+      <section id="screen-arena" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="practice-container" id="arena-practice-container">
+          <!-- Rendered dynamically by js/arena_practice.js -->
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 3: COMMUNITY (समुदाय)
+           ==================================================================== -->
+      <section id="screen-community" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="community-screen-container">
+          
+          <!-- Top Header Bar with Back Navigation -->
+          <div class="community-header-bar">
+            <div class="community-header-left">
+              <button type="button" class="btn btn-outline btn-sm" onclick="window.switchTab('abhyas')" aria-label="Back to Abhyas">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Back</span>
+              </button>
+              <div class="community-header-titles">
+                <h2 class="community-screen-title">Community</h2>
+                <span class="community-screen-subtitle">Maharashtra State Board Class 10 Peer Study Forum</span>
+              </div>
+            </div>
+            <div class="community-header-right" id="community-auth-header-slot">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- LOGGED-OUT STATE CONTAINER -->
+          <div id="community-logged-out-card" class="card-pressed card-white community-auth-card">
+            <div class="auth-card-icon-wrap">
+              <svg class="icon icon-xl" viewBox="0 0 24 24" style="stroke: #191A23;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <span class="badge badge-lime">STUDENT LOGIN REQUIRED</span>
+            <h3 style="margin: 14px 0 8px 0; font-size: 1.35rem;">Join the Student Community</h3>
+            <p style="color: var(--text-muted); font-size: 0.92rem; max-width: 480px; margin: 0 auto 20px auto; line-height: 1.5;">
+              You must be logged in as a student to send messages, ask syllabus questions, and share study materials with fellow Class 10 Maharashtra State Board students.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="btn btn-black" onclick="window.OwloraAuth.showAuthScreen()">Sign In as Student</button>
+              <button type="button" class="btn btn-outline" onclick="window.switchTab('abhyas')">Back to Home</button>
+            </div>
+          </div>
+
+          <!-- LOGGED-IN CHAT CONTAINER (hidden when logged out) -->
+          <div id="community-chat-wrapper" class="card-pressed card-white community-chat-box" style="display: none;">
+            
+            <!-- Messages Scroll Area -->
+            <div id="community-messages-list" class="community-messages-list">
+              <!-- Empty State rendered when 0 messages -->
+              <div id="community-empty-state" class="community-empty-state">
+                <svg class="icon icon-lg" viewBox="0 0 24 24" style="stroke: var(--text-light-muted); margin-bottom: 8px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <p>No messages yet.</p>
+              </div>
+            </div>
+
+            <!-- Upload error banner -->
+            <div id="community-upload-error" class="community-alert-banner" style="display: none;"></div>
+
+            <!-- Staged file preview strip -->
+            <div id="community-file-preview-strip" class="community-file-preview-strip" style="display: none;">
+              <span id="community-file-preview-info"></span>
+              <button type="button" class="btn-clear-preview" onclick="window.OwloraCommunity.clearFileStaging()" aria-label="Remove attachment">&times;</button>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="community-input-bar">
+              <input type="file" id="community-image-input" accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="window.OwloraCommunity.handleImageSelect(event)">
+              <input type="file" id="community-doc-input" accept="application/pdf" style="display: none;" onchange="window.OwloraCommunity.handleDocSelect(event)">
+              
+              <button type="button" class="btn-input-attachment" onclick="document.getElementById('community-image-input').click()" title="Upload Image (JPG, PNG, WEBP - Max 5 MB)">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              </button>
+              <button type="button" class="btn-input-attachment" onclick="document.getElementById('community-doc-input').click()" title="Upload Document (PDF only - Max 10 MB)">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              </button>
+
+              <input type="text" id="community-message-input" class="community-text-input" placeholder="Type a message..." maxlength="1000" onkeydown="if(event.key==='Enter') window.OwloraCommunity.sendMessage()">
+              
+              <button type="button" class="btn btn-black community-send-btn" onclick="window.OwloraCommunity.sendMessage()">
+                <span>Send</span>
+                <svg class="icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Report Modal -->
+          <div id="community-report-modal" class="modal-backdrop" style="display: none;">
+            <div class="modal-dialog">
+              <span class="badge badge-dark">REPORT MESSAGE</span>
+              <h3 style="margin: 12px 0 8px 0; font-size: 1.3rem;">Report to Moderator</h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                Why are you reporting this message? Reports are stored securely for moderation review.
+              </p>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+                  <input type="radio" name="report-reason" value="Inappropriate or offensive content" checked> Inappropriate or offensive content
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+                  <input type="radio" name="report-reason" value="Spam or off-topic advertising"> Spam or off-topic advertising
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+                  <input type="radio" name="report-reason" value="Harassment or bullying"> Harassment or bullying
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+                  <input type="radio" name="report-reason" value="Sharing personal contact information"> Sharing personal contact information
+                </label>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn btn-black" style="flex: 1;" onclick="window.OwloraCommunity.submitReport()">Submit Report</button>
+                <button type="button" class="btn btn-outline" style="flex: 1;" onclick="window.OwloraCommunity.closeReportModal()">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 4: PROGRESS (प्रगति) - STUDENT RANKINGS & COMPARISON
+           ==================================================================== -->
+      <section id="screen-progress" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <!-- Rendered dynamically by OwloraProgress.renderProgressScreen() -->
+      </section>
+
+      <!-- ====================================================================
+           TAB 5: PROFILE (प्रोफ़ाइल) - PERSONAL PROGRESS & ACCOUNT
+           ==================================================================== -->
+      <section id="screen-profile" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <!-- Rendered dynamically by OwloraProfile.renderProfileScreen() -->
+      </section>
+
+      <!-- ====================================================================
+           STUDY CONTENT SCREEN 1: NOTES (Redirects to notes.html)
+           ==================================================================== -->
+      <section id="screen-tool-notes" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="tool-header-bar">
+          <button type="button" class="tool-back-btn" onclick="window.switchTab('abhyas')">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Home</span>
+          </button>
+          <span class="badge badge-dark">NOTES</span>
+        </div>
+        <div style="padding: 40px 20px; text-align: center;">
+          <h2 style="font-size: 1.5rem; margin-bottom: 12px;">Opening Chapter Notes...</h2>
+          <p style="color: var(--text-muted); margin-bottom: 24px;">Browse all chapters and subjects in the dedicated Notes reader.</p>
+          <a href="notes.html" class="btn btn-lime">Open Notes Section →</a>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           STUDY CONTENT SCREEN 2: 3D DIAGRAMS & BIOLOGY ATLAS
+           ==================================================================== -->
+      <section id="screen-tool-3d" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="tool-header-bar">
+          <button type="button" class="tool-back-btn" onclick="window.switchTab('abhyas')">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Home</span>
+          </button>
+          <span class="badge badge-lime">3D DIAGRAMS & BIOLOGY ATLAS</span>
+        </div>
+
+        <div class="card-pressed card-lime" style="padding: 24px; margin-bottom: 24px;">
+          <span class="badge badge-dark">89 BIOLOGY DIAGRAMS AVAILABLE</span>
+          <h2 style="font-size: 1.45rem; margin: 12px 0 8px 0;">Biology Diagram Atlas (Classes 6 to 12)</h2>
+          <p style="font-size: 0.95rem; margin-bottom: 16px; color: #191A23;">
+            Full page-by-page high-definition atlas covering Botany, Zoology, Human Anatomy (Heart, Brain, Nephron, Eye, Reproductive Systems), and Mechanisms.
+          </p>
+          <a href="diagrams.html" class="btn btn-black">Open Biology Diagram Atlas (89 Pages) →</a>
+        </div>
+
+        <div class="diagrams-viewport-card">
+          <!-- Model Selection -->
+          <div style="padding: 16px 20px; background-color: var(--bg-card-grey); border-bottom: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <label for="select-3d-model" style="font-weight: 700; font-size: 0.9rem;">3D WIREFRAME STRUCTURAL MODEL:</label>
+            <select id="select-3d-model" class="select-control" style="max-width: 380px;">
+              <option value="model1">Science Chapter 3D Structural Model</option>
+              <option value="model2">Biology / Physics Structural Wireframe</option>
+            </select>
+          </div>
+
+          <!-- 3D Canvas Frame -->
+          <div class="diagram-canvas-frame">
+            <canvas id="diagram-canvas" width="600" height="400" style="display: block; width: 100%; height: 100%;"></canvas>
+            <div style="position: absolute; top: 16px; left: 16px; pointer-events: none;">
+              <span class="badge badge-lime">INTERACTIVE FRAME</span>
+            </div>
+          </div>
+
+          <!-- Rotate and Zoom Controls -->
+          <div class="diagram-controls-bar">
+            <div style="display: flex; gap: 8px;">
+              <button type="button" id="btn-rotate-left" class="btn btn-outline btn-sm">Rotate Left (↺)</button>
+              <button type="button" id="btn-rotate-right" class="btn btn-outline btn-sm">Rotate Right (↻)</button>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" id="btn-zoom-in" class="btn btn-outline btn-sm">Zoom In (+)</button>
+              <button type="button" id="btn-zoom-out" class="btn btn-outline btn-sm">Zoom Out (-)</button>
+              <button type="button" id="btn-diagram-reset" class="btn btn-black btn-sm">Reset View</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           STUDY CONTENT SCREEN 3: MIND MAPS VIEWER
+           ==================================================================== -->
+      <section id="screen-tool-mindmaps" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="tool-header-bar">
+          <button type="button" class="tool-back-btn" onclick="window.switchTab('abhyas')">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Home</span>
+          </button>
+          <span class="badge badge-lime">MIND MAPS VIEWER</span>
+        </div>
+
+        <div class="card-pressed card-white" style="padding: 30px; text-align: center; margin-bottom: 24px;">
+          <h2 style="font-size: 1.4rem; margin-bottom: 12px;">Full Mind Maps Explorer</h2>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">Explore all 106 high-definition concept mind maps across Science, Mathematics, and SST with HD zoom and Part selection.</p>
+          <a href="mind_maps.html" class="btn btn-lime">Open Mind Maps Viewer →</a>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           STUDY CONTENT SCREEN 4: CHAPTER AUDIOBOOK PLAYER
+           ==================================================================== -->
+      <section id="screen-tool-audiobook" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div id="podcast-app-container"></div>
+      </section>
+
+      <!-- ====================================================================
+           STUDY CONTENT SCREEN 5: PREVIOUS YEARS' QUESTIONS (PYQ)
+           ==================================================================== -->
+      <section id="screen-tool-pyq" class="app-screen" style="max-width: 900px; margin: 24px auto; padding: 0 16px;">
+        <div class="tool-header-bar" style="margin-bottom: 16px;">
+          <button type="button" class="tool-back-btn" onclick="window.switchTab('abhyas')">
+            <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back to Abhyas</span>
+          </button>
+          <span class="badge badge-lime">PREVIOUS YEARS' QUESTIONS</span>
+        </div>
+
+        <!-- Main PYQ Practice Flow Container (Subject -> Chapter -> Type -> Practice -> Result) -->
+        <div id="pyq-view-container">
+          <!-- Populated dynamically by js/pyq_practice.js -->
+        </div>
+      </section>
+
+
+
+    </main>
+
+    <!-- ====================================================================
+         BOTTOM NAVIGATION WITH EXACTLY 5 TABS:
+         Abhyas, Arena, Community, Progress, Profile
+         ==================================================================== -->
+    <nav class="app-bottom-nav">
+      <button type="button" class="bottom-tab active" data-tab="abhyas" onclick="window.switchTab('abhyas')">
+        <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>Abhyas</span>
+      </button>
+
+      <a href="ai_tutor.html" class="bottom-tab" style="color: var(--text-main); text-decoration: none;">
+        <svg class="icon" viewBox="0 0 24 24" style="stroke: #191A23;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <span style="font-weight: 800;">AI Tutor</span>
+      </a>
+
+      <button type="button" class="bottom-tab" data-tab="arena" onclick="window.switchTab('arena')">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+        <span>Arena</span>
+      </button>
+
+      <button type="button" class="bottom-tab" data-tab="community" onclick="window.switchTab('community')">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Community</span>
+      </button>
+
+      <button type="button" class="bottom-tab" data-tab="progress" onclick="window.switchTab('progress')">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Progress</span>
+      </button>
+
+      <button type="button" class="bottom-tab" data-tab="profile" onclick="window.switchTab('profile')">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- ====================================================================
+         REGAIN-STYLE FOCUS LOCK OVERLAY & FRICTION EXIT FLOW
+         ==================================================================== -->
+    <div id="focus-lock-overlay" class="focus-lock-overlay">
+      <div class="lock-card">
+        <div class="lock-icon-wrap">
+          <svg class="icon icon-xl" viewBox="0 0 24 24" style="stroke: #191A23;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        
+        <div>
+          <span class="badge badge-lime">FOCUS LOCK ACTIVE</span>
+          <h2 style="margin-top: 10px;">Distraction Lock Engaged</h2>
+          <p id="lock-subject-badge" style="font-weight: 700; color: var(--text-main); margin-top: 4px;">[Subject 1 - Balbharati Subject]</p>
+        </div>
+
+        <div id="lock-countdown" class="lock-countdown-display">25:00</div>
+
+        <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 380px;">
+          Third-party apps and notifications are locked. Remain in Owlora to complete your Maharashtra Board study block.
+        </p>
+
+        <div class="lock-actions">
+          <button type="button" id="btn-lock-break" class="btn btn-outline">Take 5-Min Break</button>
+          <button type="button" id="btn-emergency-exit" class="btn btn-black">Emergency Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friction Emergency Exit Confirmation Modal -->
+    <div id="exit-confirm-modal" class="modal-backdrop">
+      <div class="modal-dialog">
+        <span class="badge badge-dark">SESSION FRICTION CHECK</span>
+        <h3 style="font-size: 1.4rem;">Exit Focus Session?</h3>
+        <p style="font-size: 0.95rem;">
+          Breaking your scheduled focus block early will interrupt your revision continuity. Are you sure you want to unlock?
+        </p>
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+          <button type="button" id="btn-keep-studying" class="btn btn-black" style="flex: 1;">Keep Studying</button>
+          <button type="button" id="btn-confirm-exit" class="btn btn-outline" style="flex: 1;">Confirm Exit</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase_client.js?v=1"></script>
+  <script src="js/timer.js?v=6"></script>
+  <script src="js/chapters_data.js?v=8"></script>
+  <script src="js/data/pyq_practice_data.js?v=4.1"></script>
+  <script src="js/pyq_practice.js?v=4.1"></script>
+  <script src="js/data/question_bank/manifest.js?v=2"></script>
+  <script src="js/arena_practice.js?v=4"></script>
+  <script src="js/features.js?v=8"></script>
+  <script src="js/community_progress.js?v=2"></script>
+  <script src="js/podcast.js?v=1"></script>
+  <script src="js/app.js?v=7"></script>
+</body>
+</html>

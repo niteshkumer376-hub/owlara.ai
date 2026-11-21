@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 10 Mind Maps | Owlora</title>
+  <meta name="description" content="Visual concept trees and formula summaries for Class 10 Maharashtra State Board students.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-58G45Z5J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+  <!-- End Google Tag Manager -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/app.css?v=8">
+  <script>
+    if (!localStorage.getItem('owlora_current_user')) {
+      window.location.href = 'index.html';
+    }
+  </script>
+  <style>
+    /* View Navigation */
+    .mindmap-view {
+      display: none;
+    }
+    .mindmap-view.active {
+      display: block;
+    }
+
+    /* Subjects Grid */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .subject-select-card {
+      background: #FFFFFF;
+      border: 2px solid #191A23;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 4px 4px 0px #191A23;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .subject-select-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0px #191A23;
+      background-color: #F8F9FA;
+    }
+
+    .subject-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .subject-card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #191A23;
+      margin: 0 0 8px 0;
+    }
+
+    .subject-card-desc {
+      font-size: 0.95rem;
+      color: #6C757D;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .subject-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #191A23;
+    }
+
+    /* Chapters Subgroup */
+    .chapters-subgroup-heading {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #191A23;
+      padding: 12px 16px;
+      background: #F4F5F7;
+      border-left: 4px solid #191A23;
+      border-radius: 4px;
+      margin: 24px 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .chapter-card-item {
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 3px 3px 0px #191A23;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chapter-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0px #191A23;
+      background: #F8F9FA;
+    }
+
+    .chapter-card-item .part-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6C757D;
+    }
+
+    .chapter-card-item .ch-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #191A23;
+      line-height: 1.4;
+    }
+
+    /* Top Action Bar */
+    .viewer-top-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid var(--border-color);
+    }
+
+    /* Viewer Container & Canvas */
+    .mindmap-viewer-wrapper {
+      background: #FFFFFF;
+      border: 2px solid #191A23;
+      border-radius: 16px;
+      box-shadow: 4px 4px 0px #191A23;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mindmap-viewer-wrapper:fullscreen,
+    .mindmap-viewer-wrapper:-webkit-full-screen {
+      border-radius: 0;
+      border: none;
+      width: 100vw;
+      height: 100vh;
+      background: #111218;
+    }
+
+    .mindmap-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #F8F9FA;
+      border-bottom: 1.5px solid #191A23;
+      flex-wrap: wrap;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .mindmap-viewer-wrapper:fullscreen .mindmap-toolbar,
+    .mindmap-viewer-wrapper:-webkit-full-screen .mindmap-toolbar {
+      background: #191A23;
+      border-bottom: 1px solid #333644;
+      color: #FFFFFF;
+    }
+
+    .mindmap-toolbar-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1.5px solid #191A23;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #191A23;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px #191A23;
+      transition: background 0.12s ease, transform 0.12s ease;
+      user-select: none;
+    }
+
+    .toolbar-btn:hover {
+      background: #F0F0F0;
+      transform: translateY(-1px);
+    }
+
+    .toolbar-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #191A23;
+    }
+
+    .mindmap-viewer-wrapper:fullscreen .toolbar-btn,
+    .mindmap-viewer-wrapper:-webkit-full-screen .toolbar-btn {
+      background: #232533;
+      color: #FFFFFF;
+      border-color: #555869;
+      box-shadow: 2px 2px 0px #000000;
+    }
+
+    .zoom-level-text {
+      font-family: monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      background: #EAEAEA;
+      border: 1px solid #CCC;
+      border-radius: 6px;
+      min-width: 58px;
+      text-align: center;
+    }
+
+    .mindmap-viewer-wrapper:fullscreen .zoom-level-text,
+    .mindmap-viewer-wrapper:-webkit-full-screen .zoom-level-text {
+      background: #2B2E3D;
+      color: #B9FF66;
+      border-color: #44475A;
+    }
+
+    /* Viewport Area */
+    .mindmap-viewport {
+      position: relative;
+      width: 100%;
+      height: 620px;
+      background: #FAFAFB;
+      overflow: hidden;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .mindmap-viewer-wrapper:fullscreen .mindmap-viewport,
+    .mindmap-viewer-wrapper:-webkit-full-screen .mindmap-viewport {
+      height: calc(100vh - 54px);
+      background: #0E0F14;
+    }
+
+    .mindmap-viewport.is-dragging {
+      cursor: grabbing;
+    }
+
+    .mindmap-content-box {
+      position: absolute;
+      transform-origin: center center;
+      will-change: transform;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.05s ease-out;
+    }
+
+    .mindmap-content-box.animated-reset {
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .mindmap-img {
+      display: block;
+      width: 100%;
+      max-width: 1024px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      filter: contrast(1.04) brightness(1.01);
+    }
+
+    @media (max-width: 768px) {
+      .mindmap-viewport {
+        height: 520px;
+      }
+      .toolbar-btn span.btn-label {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-canvas);">
+
+  <!-- App Header Top Bar -->
+  <header class="app-topbar">
+    <a href="index.html" class="app-brand">
+      <img src="assets/favicon.svg" alt="Owlora Icon" width="28" height="28">
+      <span>OWLORA</span>
+    </a>
+
+    <div class="app-topbar-actions">
+      <!-- Medium Toggle in Header -->
+      <div id="header-medium-toggle" class="medium-toggle-group">
+        <button type="button" class="medium-btn active" data-medium="english" onclick="window.setMindMapMedium('english')">English</button>
+        <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setMindMapMedium('hindi')">हिंदी</button>
+      </div>
+
+      <a href="ai_tutor.html" class="topbar-btn" style="background-color: var(--accent-lime); font-weight: 800; border: 2px solid #191A23; box-shadow: 2px 2px 0 #191A23;">
+        <span>✨ Ask AI Teacher</span>
+      </a>
+
+      <a href="index.html" class="topbar-btn">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Home</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container" style="max-width: 1100px; margin-top: 24px; padding-bottom: 60px;">
+
+    <!-- ========================================== -->
+    <!-- STEP 1: SUBJECTS LIST SCREEN               -->
+    <!-- ========================================== -->
+    <section id="mindmaps-view-subjects" class="mindmap-view active">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <span class="badge badge-dark">MAHARASHTRA STATE BOARD</span>
+          <h1 style="font-size: 2rem; margin: 10px 0 4px 0;">Class 10 Mind Maps</h1>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Select a subject to explore interactive concept hierarchy mind maps.</p>
+        </div>
+        <a href="index.html" class="btn btn-outline btn-sm">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Home</span>
+        </a>
+      </div>
+
+      <!-- Subjects Container (populated via JS with only subjects that have mind maps) -->
+      <div id="mindmaps-subjects-grid" class="subjects-grid"></div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STEP 2: CHAPTER LIST SCREEN                -->
+    <!-- ========================================== -->
+    <section id="mindmaps-view-chapters" class="mindmap-view">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+        <button type="button" class="btn btn-outline btn-sm" onclick="window.backToSubjects()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Subjects</span>
+        </button>
+
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <!-- Part Toggle (Part 1 | Part 2) styled identically to Medium toggle -->
+          <div id="chapters-part-toggle" class="medium-toggle-group"></div>
+
+          <!-- Medium Toggle on Chapter List Screen -->
+          <div id="chapters-medium-toggle" class="medium-toggle-group">
+            <button type="button" class="medium-btn active" data-medium="english" onclick="window.setMindMapMedium('english')">English</button>
+            <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setMindMapMedium('hindi')">हिंदी</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <span id="chapters-subject-badge" class="badge badge-lime">MATHEMATICS</span>
+        <h1 id="chapters-subject-title" style="font-size: 2rem; margin: 10px 0 4px 0;">Mathematics Mind Maps</h1>
+        <p id="chapters-subject-desc" style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Select a chapter to open its concept map.</p>
+      </div>
+
+      <!-- Chapter Groups Container -->
+      <div id="mindmaps-chapters-container"></div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- STEP 3: MIND MAP VIEWER SCREEN             -->
+    <!-- ========================================== -->
+    <section id="mindmaps-view-viewer" class="mindmap-view">
+      <div class="viewer-top-action-bar">
+        <button type="button" class="btn btn-outline btn-sm" onclick="window.backToChapters()">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Chapters</span>
+        </button>
+
+        <!-- Title of Mind Map: exact topic title without extension or chapter prefix -->
+        <h2 id="viewer-mindmap-title" style="font-size: 1.35rem; font-weight: 800; margin: 0; color: #191A23; text-align: center;">Linear Equations in Two Variables</h2>
+
+        <!-- Medium Toggle on Viewer Screen (only shown if current chapter has both mediums) -->
+        <div id="viewer-medium-toggle" class="medium-toggle-group">
+          <button type="button" class="medium-btn active" data-medium="english" onclick="window.setMindMapMedium('english')">English</button>
+          <button type="button" class="medium-btn" data-medium="hindi" onclick="window.setMindMapMedium('hindi')">हिंदी</button>
+        </div>
+      </div>
+
+      <!-- Mind Map Viewer Canvas -->
+      <div id="mindmap-viewer-wrapper" class="mindmap-viewer-wrapper">
+        <!-- Interactive Toolbar -->
+        <div class="mindmap-toolbar">
+          <div class="mindmap-toolbar-group">
+            <button type="button" class="toolbar-btn" onclick="window.zoomViewer(-0.25)" title="Zoom Out ( - )" aria-label="Zoom Out">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span class="btn-label">Zoom Out</span>
+            </button>
+            <span id="zoom-level-indicator" class="zoom-level-text">100%</span>
+            <button type="button" class="toolbar-btn" onclick="window.zoomViewer(0.25)" title="Zoom In ( + )" aria-label="Zoom In">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span class="btn-label">Zoom In</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="window.resetViewerZoom()" title="Fit Screen" aria-label="Fit Screen">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+              <span class="btn-label">Fit</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="window.setHDZoom()" title="HD Quality 100%" aria-label="HD Quality">
+              <span style="font-weight: 800; font-size: 0.72rem; border: 1.5px solid currentColor; border-radius: 4px; padding: 1px 3px; line-height: 1; letter-spacing: -0.5px;">HD</span>
+              <span class="btn-label">100%</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="window.setUltraHDZoom()" title="Ultra Clarity (135% Crisp Zoom)" aria-label="Ultra Clarity">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              <span class="btn-label">Ultra Crisp</span>
+            </button>
+          </div>
+
+          <div class="mindmap-toolbar-group">
+            <button type="button" class="toolbar-btn" onclick="window.toggleViewerFullscreen()" title="Fullscreen ( F )" aria-label="Toggle Fullscreen">
+              <svg id="fullscreen-icon" class="icon" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+              <span id="fullscreen-btn-text" class="btn-label">Fullscreen</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Viewport Area -->
+        <div id="mindmap-viewport" class="mindmap-viewport">
+          <div id="mindmap-content-box" class="mindmap-content-box">
+            <img id="viewer-mindmap-img" class="mindmap-img" src="" alt="Mind Map Image" loading="eager" decoding="sync">
+          </div>
+        </div>
+        <p style="font-size: 0.85rem; color: #6C757D; margin: 10px 0 0 0; text-align: center;">💡 <strong>HD Clarity:</strong> Click <strong>HD 100%</strong> or <strong>Zoom In (+)</strong> to view all concept branches at full high resolution.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/community_progress.js?v=2"></script>
+  <script src="js/mind_maps_data.js?v=2"></script>
+  <script>
+    (function() {
+      // State
+      let currentMedium = 'english';
+      let currentSubjectId = 'science';
+      let currentPartIndex = 0;
+      let currentPartId = 'science_part1';
+      let currentChNumber = 1;
+
+      // Viewer Pan & Zoom State
+      let scale = 1;
+      let panX = 0;
+      let panY = 0;
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let pinchStartDistance = 0;
+      let pinchStartScale = 1;
+
+      const viewport = document.getElementById('mindmap-viewport');
+      const contentBox = document.getElementById('mindmap-content-box');
+      const imgElem = document.getElementById('viewer-mindmap-img');
+      const zoomIndicator = document.getElementById('zoom-level-indicator');
+      const viewerWrapper = document.getElementById('mindmap-viewer-wrapper');
+      const viewerTitle = document.getElementById('viewer-mindmap-title');
+
+      function updateTransform(animated) {
+        if (animated) {
+          contentBox.classList.add('animated-reset');
+          setTimeout(() => contentBox.classList.remove('animated-reset'), 260);
+        }
+        contentBox.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+        if (zoomIndicator) {
+          zoomIndicator.textContent = `${Math.round(scale * 100)}%`;
+        }
+      }
+
+      window.zoomViewer = function(delta) {
+        let newScale = scale + delta;
+        newScale = Math.max(0.5, Math.min(4.0, newScale));
+        scale = newScale;
+        updateTransform(true);
+      };
+
+      window.resetViewerZoom = function() {
+        const vpWidth = viewport.clientWidth || 900;
+        const imgWidth = 1024;
+        if (vpWidth < imgWidth) {
+          scale = Math.max(0.55, Math.min(1.0, (vpWidth - 20) / imgWidth));
+        } else {
+          scale = 1.0;
+        }
+        panX = 0;
+        panY = 0;
+        updateTransform(true);
+      };
+
+      window.setHDZoom = function() {
+        scale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform(true);
+      };
+
+      window.setUltraHDZoom = function() {
+        scale = 1.35;
+        panX = 0;
+        panY = 0;
+        updateTransform(true);
+      };
+
+      window.toggleViewerFullscreen = function() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (viewerWrapper.requestFullscreen) {
+            viewerWrapper.requestFullscreen();
+          } else if (viewerWrapper.webkitRequestFullscreen) {
+            viewerWrapper.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      };
+
+      document.addEventListener('fullscreenchange', () => {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        const btnText = document.getElementById('fullscreen-btn-text');
+        if (btnText) {
+          btnText.textContent = isFs ? 'Exit Fullscreen' : 'Fullscreen';
+        }
+        window.resetViewerZoom();
+      });
+
+      // Mouse drag to pan
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return; // only left click
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+        viewport.classList.add('is-dragging');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        updateTransform(false);
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          viewport.classList.remove('is-dragging');
+        }
+      });
+
+      // Mouse wheel zoom
+      viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const rect = viewport.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left - rect.width / 2;
+        const mouseY = e.clientY - rect.top - rect.height / 2;
+
+        const zoomFactor = e.deltaY < 0 ? 1.15 : 0.85;
+        let newScale = scale * zoomFactor;
+        newScale = Math.max(0.5, Math.min(4.0, newScale));
+
+        // Adjust pan to zoom towards mouse position
+        panX = mouseX - (mouseX - panX) * (newScale / scale);
+        panY = mouseY - (mouseY - panY) * (newScale / scale);
+        scale = newScale;
+        updateTransform(false);
+      }, { passive: false });
+
+      // Double-click to toggle 1x / 2x zoom
+      viewport.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        if (scale > 1.2) {
+          window.resetViewerZoom();
+        } else {
+          scale = 2.0;
+          panX = 0;
+          panY = 0;
+          updateTransform(true);
+        }
+      });
+
+      // Touch events (Pinch to zoom & 1 finger pan)
+      function getTouchDistance(t1, t2) {
+        const dx = t1.clientX - t2.clientX;
+        const dy = t1.clientY - t2.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          startX = e.touches[0].clientX - panX;
+          startY = e.touches[0].clientY - panY;
+        } else if (e.touches.length === 2) {
+          isDragging = false;
+          pinchStartDistance = getTouchDistance(e.touches[0], e.touches[1]);
+          pinchStartScale = scale;
+        }
+      }, { passive: false });
+
+      viewport.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 1 && isDragging) {
+          panX = e.touches[0].clientX - startX;
+          panY = e.touches[0].clientY - startY;
+          updateTransform(false);
+        } else if (e.touches.length === 2) {
+          const dist = getTouchDistance(e.touches[0], e.touches[1]);
+          if (pinchStartDistance > 0) {
+            const factor = dist / pinchStartDistance;
+            let newScale = pinchStartScale * factor;
+            newScale = Math.max(0.5, Math.min(4.0, newScale));
+            scale = newScale;
+            updateTransform(false);
+          }
+        }
+      }, { passive: false });
+
+      viewport.addEventListener('touchend', (e) => {
+        if (e.touches.length === 0) {
+          isDragging = false;
+        } else if (e.touches.length === 1) {
+          isDragging = true;
+          startX = e.touches[0].clientX - panX;
+          startY = e.touches[0].clientY - panY;
+        }
+      });
+
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e) => {
+        const activeView = document.getElementById('mindmaps-view-viewer');
+        if (!activeView || !activeView.classList.contains('active')) return;
+
+        if (e.key === '+' || e.key === '=') {
+          window.zoomViewer(0.25);
+        } else if (e.key === '-' || e.key === '_') {
+          window.zoomViewer(-0.25);
+        } else if (e.key === '0') {
+          window.resetViewerZoom();
+        } else if (e.key === 'f' || e.key === 'F') {
+          window.toggleViewerFullscreen();
+        }
+      });
+
+      // View Switching
+      function switchView(viewId) {
+        document.querySelectorAll('.mindmap-view').forEach(v => v.classList.remove('active'));
+        const target = document.getElementById(viewId);
+        if (target) {
+          target.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+
+      window.backToSubjects = function() {
+        switchView('mindmaps-view-subjects');
+      };
+
+      window.backToChapters = function() {
+        renderChapters(currentSubjectId);
+        switchView('mindmaps-view-chapters');
+      };
+
+      // Part Toggle Handler (Part 1 | Part 2 / भाग १ | भाग २)
+      window.setMindMapPartIndex = function(index) {
+        currentPartIndex = index;
+        renderChapters(currentSubjectId);
+      };
+
+      // Medium Toggle Handler
+      window.setMindMapMedium = function(medium) {
+        currentMedium = medium;
+        // Update all toggle buttons
+        document.querySelectorAll('.medium-btn').forEach(btn => {
+          if (btn.dataset.medium === medium) {
+            btn.classList.add('active');
+          } else if (btn.dataset.medium) {
+            btn.classList.remove('active');
+          }
+        });
+
+        // Re-render current active view
+        const currentView = document.querySelector('.mindmap-view.active');
+        if (currentView && currentView.id === 'mindmaps-view-chapters') {
+          renderChapters(currentSubjectId);
+        } else if (currentView && currentView.id === 'mindmaps-view-viewer') {
+          openViewer(currentSubjectId, currentPartId, currentChNumber);
+        }
+      };
+
+      // Render Subjects (Only subjects with at least one mind map)
+      function renderSubjects() {
+        const grid = document.getElementById('mindmaps-subjects-grid');
+        grid.innerHTML = '';
+
+        const subjectsWithMindMaps = window.MIND_MAPS_DATA.filter(s => {
+          let totalMaps = 0;
+          s.parts.forEach(p => {
+            p.chapters.forEach(c => {
+              if (c.media && (c.media.english || c.media.hindi)) totalMaps++;
+            });
+          });
+          return totalMaps > 0;
+        });
+
+        subjectsWithMindMaps.forEach(subj => {
+          const card = document.createElement('div');
+          card.className = 'subject-select-card';
+          card.onclick = () => window.openSubject(subj.id);
+
+          const isHi = currentMedium === 'hindi';
+          const title = isHi && subj.nameHi ? subj.nameHi : subj.name;
+          const desc = isHi && subj.descriptionHi ? subj.descriptionHi : subj.description;
+
+          card.innerHTML = `
+            <div>
+              <div class="subject-card-header">
+                <span class="badge badge-lime">${subj.category.toUpperCase()}</span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: #191A23;">Class 10</span>
+              </div>
+              <h2 class="subject-card-title">${title}</h2>
+              <p class="subject-card-desc">${desc}</p>
+            </div>
+            <div class="subject-card-action">
+              <span>View Mind Maps</span>
+              <svg class="icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      window.openSubject = function(subjectId) {
+        currentSubjectId = subjectId;
+        currentPartIndex = 0;
+        renderChapters(subjectId);
+        switchView('mindmaps-view-chapters');
+      };
+
+      // Render Chapters (Filtered by active Part toggle and Medium)
+      function renderChapters(subjectId) {
+        const subject = window.MIND_MAPS_DATA.find(s => s.id === subjectId);
+        if (!subject) return;
+
+        const isHi = currentMedium === 'hindi';
+        document.getElementById('chapters-subject-badge').textContent = (isHi && subject.nameHi ? subject.nameHi : subject.name).toUpperCase();
+        document.getElementById('chapters-subject-title').textContent = `${isHi && subject.nameHi ? subject.nameHi : subject.name} Mind Maps`;
+        document.getElementById('chapters-subject-desc').textContent = isHi ? 'माइंड मॅप पाहण्यासाठी प्रकरण निवडा.' : 'Select a chapter to open its concept map.';
+
+        // Render Part Toggle (Part 1 | Part 2 / भाग १ | भाग २)
+        const partToggleContainer = document.getElementById('chapters-part-toggle');
+        if (partToggleContainer) {
+          if (subject.parts && subject.parts.length > 1) {
+            partToggleContainer.style.display = 'inline-flex';
+            partToggleContainer.innerHTML = '';
+            if (currentPartIndex >= subject.parts.length) {
+              currentPartIndex = 0;
+            }
+            subject.parts.forEach((p, idx) => {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'medium-btn' + (idx === currentPartIndex ? ' active' : '');
+              const label = isHi && p.shortNameHi ? p.shortNameHi : (p.shortName || (isHi ? `भाग ${idx + 1}` : `Part ${idx + 1}`));
+              btn.textContent = label;
+              btn.onclick = () => window.setMindMapPartIndex(idx);
+              partToggleContainer.appendChild(btn);
+            });
+          } else {
+            partToggleContainer.style.display = 'none';
+            partToggleContainer.innerHTML = '';
+            currentPartIndex = 0;
+          }
+        }
+
+        // Render Medium Toggle visibility
+        const mediumToggleElem = document.getElementById('chapters-medium-toggle');
+        if (mediumToggleElem) {
+          if (subject.category === 'Language' || subject.id === 'hindi' || subject.id === 'english') {
+            mediumToggleElem.style.display = 'none';
+          } else {
+            mediumToggleElem.style.display = 'inline-flex';
+          }
+        }
+
+        const container = document.getElementById('mindmaps-chapters-container');
+        container.innerHTML = '';
+
+        if (!subject.parts || subject.parts.length === 0) return;
+
+        const activePart = subject.parts[currentPartIndex] || subject.parts[0];
+        currentPartId = activePart.partId;
+
+        // Filter chapters that have a mind map in current medium
+        const availableChapters = activePart.chapters.filter(ch => {
+          return ch.media && ch.media[currentMedium];
+        });
+
+        const heading = document.createElement('h3');
+        heading.className = 'chapters-subgroup-heading';
+        heading.textContent = isHi && activePart.partNameHi ? activePart.partNameHi : activePart.partName;
+        container.appendChild(heading);
+
+        if (availableChapters.length === 0) {
+          const emptyNotice = document.createElement('p');
+          emptyNotice.style.cssText = 'color: #6C757D; font-size: 0.95rem; padding: 16px 0;';
+          if (!activePart.chapters || activePart.chapters.length === 0) {
+            emptyNotice.textContent = isHi ? 'या विभागासाठी माइंड मॅप्स उपलब्ध नाहीत.' : 'No mind maps currently available for this section.';
+          } else {
+            emptyNotice.textContent = isHi ? 'या भागासाठी सध्या हिंदी माध्यमातील माइंड मॅप उपलब्ध नाही.' : 'No mind maps available in English for this section.';
+          }
+          container.appendChild(emptyNotice);
+          return;
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'chapters-grid';
+
+        availableChapters.forEach(ch => {
+          const card = document.createElement('div');
+          card.className = 'chapter-card-item';
+          card.onclick = () => window.openMindMap(subjectId, activePart.partId, ch.chNumber);
+
+          const mediaItem = ch.media[currentMedium];
+          const displayTitle = mediaItem ? mediaItem.title : (isHi ? ch.titleHi : ch.title);
+
+          card.innerHTML = `
+            <span class="part-label">${isHi ? 'प्रकरण ' + ch.chNumber : 'Chapter ' + ch.chNumber}</span>
+            <span class="ch-title">${displayTitle}</span>
+          `;
+          grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+      }
+
+      window.openMindMap = function(subjectId, partId, chNumber) {
+        currentSubjectId = subjectId;
+        currentPartId = partId;
+        currentChNumber = chNumber;
+        openViewer(subjectId, partId, chNumber);
+        switchView('mindmaps-view-viewer');
+      };
+
+      function openViewer(subjectId, partId, chNumber) {
+        const subject = window.MIND_MAPS_DATA.find(s => s.id === subjectId);
+        if (!subject) return;
+        const partIdx = subject.parts.findIndex(p => p.partId === partId);
+        if (partIdx !== -1) currentPartIndex = partIdx;
+        const part = subject.parts[partIdx !== -1 ? partIdx : 0];
+        if (!part) return;
+        const chapter = part.chapters.find(c => c.chNumber === chNumber);
+        if (!chapter) return;
+
+        // Check mediums available for this chapter
+        const hasEn = !!(chapter.media && chapter.media.english);
+        const hasHi = !!(chapter.media && chapter.media.hindi);
+
+        // If current medium is not available for this chapter, switch to available one
+        if (!chapter.media[currentMedium]) {
+          if (hasEn) currentMedium = 'english';
+          else if (hasHi) currentMedium = 'hindi';
+        }
+
+        const mediaItem = chapter.media[currentMedium];
+        if (!mediaItem) return;
+
+        // Title: exact filename/topic title without extension and without chapter prefix
+        viewerTitle.textContent = mediaItem.title;
+
+        // Medium toggle visibility in viewer:
+        // "Show a medium only if a mind map exists in that medium. If only one medium has a mind map, show only that one. Do not add placeholders or translations."
+        const viewerToggle = document.getElementById('viewer-medium-toggle');
+        const headerToggle = document.getElementById('header-medium-toggle');
+        const chaptersToggle = document.getElementById('chapters-medium-toggle');
+
+        function updateToggleButtons(toggleElem) {
+          if (!toggleElem) return;
+          const enBtn = toggleElem.querySelector('[data-medium="english"]');
+          const hiBtn = toggleElem.querySelector('[data-medium="hindi"]');
+          if (enBtn) {
+            enBtn.style.display = hasEn ? 'inline-block' : 'none';
+            if (currentMedium === 'english') enBtn.classList.add('active');
+            else enBtn.classList.remove('active');
+          }
+          if (hiBtn) {
+            hiBtn.style.display = hasHi ? 'inline-block' : 'none';
+            if (currentMedium === 'hindi') hiBtn.classList.add('active');
+            else hiBtn.classList.remove('active');
+          }
+        }
+
+        updateToggleButtons(viewerToggle);
+        updateToggleButtons(headerToggle);
+        updateToggleButtons(chaptersToggle);
+
+        // Set image source
+        imgElem.src = mediaItem.image + '?v=2';
+        imgElem.alt = mediaItem.title;
+
+        // Reset Pan & Zoom so image fits screen width on open
+        window.resetViewerZoom();
+      }
+
+      // Initialize
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramSubject = urlParams.get('subject');
+      const paramMedium = urlParams.get('medium');
+      if (paramMedium === 'hindi' || paramMedium === 'english') {
+        currentMedium = paramMedium;
+        document.querySelectorAll('.medium-btn').forEach(btn => {
+          if (btn.dataset.medium === currentMedium) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+      }
+      if (paramSubject && window.MIND_MAPS_DATA.some(s => s.id === paramSubject)) {
+        window.openSubject(paramSubject);
+      } else {
+        renderSubjects();
+      }
+    })();
+  </script>
+</body>
+</html>
